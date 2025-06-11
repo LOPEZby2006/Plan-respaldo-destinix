@@ -4,7 +4,6 @@ import Sidebar from "./components/sidebar";
 import Header from "./components/Header";
 import Slider from "./components/Slider";
 import Itinerario from "./pages/Itinerario";
-import Planes from "./pages/planes";
 import Turismo from "./pages/turismo";
 import Restaurantes from "./pages/restaurante";
 import Hoteleria from "./pages/hoteleria";
@@ -36,7 +35,6 @@ function AppLayout() {
 
         <Routes>
             <Route path="/itinerario" element={<Layout showHeader={false}><Itinerario /></Layout>} />
-            <Route path="/planes" element={<Layout showHeader={false}><Planes /></Layout>} />
             <Route path="/turismo" element={<Layout showHeader={false}><Turismo /></Layout>} />
             <Route path="/restaurantes" element={<Layout showHeader={false}><Restaurantes /></Layout>} />
             <Route path="/hoteleria" element={<Layout showHeader={false}><Hoteleria /></Layout>} />

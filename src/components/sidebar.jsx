@@ -32,7 +32,6 @@ const Sidebar = () => {
     const menuItems = [
         { path: "/dashboard", label: "Inicio", icon: "home" },
         { path: "/itinerario", label: "Itinerario", icon: "calendar-alt" },
-        { path: "/planes", label: "Planes", icon: "map-marked-alt" },
         { path: "/turismo", label: "Turismo", icon: "plane-departure" },
         { path: "/restaurantes", label: "Restaurantes", icon: "utensils" },
         { path: "/hoteleria", label: "Hotelería", icon: "hotel" },
