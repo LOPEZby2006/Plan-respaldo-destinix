@@ -177,14 +177,14 @@ const ESTADO_URL = "http://localhost/destinix/estado.php";
 export const getEstados = async () => {
     try {
         const response = await fetch(ESTADO_URL);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const text = await response.text();
         console.log("Respuesta GET:", text);
-        
+
         try {
             return JSON.parse(text);
         } catch (e) {
@@ -200,7 +200,7 @@ export const getEstados = async () => {
 export const addEstado = async (desc_estado) => {
     try {
         console.log("Enviando:", { desc_estado });
-        
+
         const response = await fetch(ESTADO_URL, {
             method: "POST",
             headers: {
@@ -249,7 +249,7 @@ export const updateEstado = async (id, desc_estado) => {
 
         const text = await response.text();
         console.log("Respuesta PUT:", text);
-        
+
         return JSON.parse(text);
     } catch (error) {
         console.error("Error en updateEstado:", error);
@@ -269,7 +269,7 @@ export const deleteEstado = async (id) => {
 
         const text = await response.text();
         console.log("Respuesta DELETE:", text);
-        
+
         return JSON.parse(text);
     } catch (error) {
         console.error("Error en deleteEstado:", error);
@@ -286,7 +286,7 @@ export const getHoteles = async () => {
 export const addHotel = async (formData) => {
     const res = await fetch(Hoteles_URL, {
         method: "POST",
-        body: formData, 
+        body: formData,
     });
     return await res.json();
 };
@@ -315,46 +315,46 @@ const BASE_URL = "http://localhost/destinix/usuarioadmin.php";
 
 // Obtener todos los registros
 export const getPersonas = async () => {
-  const response = await fetch(BASE_URL);
-  const data = await response.json();
-  return data;
+    const response = await fetch(BASE_URL);
+    const data = await response.json();
+    return data;
 };
 
 // Agregar una persona (usando FormData por la imagen)
 export const addPersona = async (formData) => {
-  const response = await fetch(BASE_URL, {
-    method: "POST",
-    body: formData,
-  });
-  const data = await response.json();
-  return data;
+    const response = await fetch(BASE_URL, {
+        method: "POST",
+        body: formData,
+    });
+    const data = await response.json();
+    return data;
 };
 
 // Eliminar una persona
 export const deletePersona = async (id_persona) => {
-  const response = await fetch(BASE_URL, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id_persona }),
-  });
-  const data = await response.json();
-  return data;
+    const response = await fetch(BASE_URL, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id_persona }),
+    });
+    const data = await response.json();
+    return data;
 };
 
 // Actualizar una persona
 // api.js
 export const updatePersona = async (id_persona, formData) => {
-  const response = await fetch(BASE_URL, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id_persona, ...formData }), // ← importante
-  });
-  const data = await response.json();
-  return data;
+    const response = await fetch(BASE_URL, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id_persona, ...formData }), // ← importante
+    });
+    const data = await response.json();
+    return data;
 };
 
 
@@ -482,14 +482,14 @@ const ROL_URL = "http://localhost/destinix/roles.php";
 export const getRol = async () => {
     try {
         const response = await fetch(ROL_URL);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const text = await response.text();
         console.log("Respuesta GET roles:", text);
-        
+
         return JSON.parse(text);
     } catch (error) {
         console.error("Error en getRol:", error);
@@ -500,7 +500,7 @@ export const getRol = async () => {
 export const addRol = async (rol) => {
     try {
         console.log("Enviando rol:", rol);
-        
+
         // CORRECCIÓN: Usar JSON en lugar de FormData para consistencia
         const response = await fetch(ROL_URL, {
             method: "POST",
@@ -530,7 +530,7 @@ export const addRol = async (rol) => {
 export const updateRol = async (id, rol) => {
     try {
         console.log("Actualizando rol:", { id, rol });
-        
+
         const response = await fetch(ROL_URL, {
             method: "PUT",
             headers: {
@@ -538,7 +538,7 @@ export const updateRol = async (id, rol) => {
             },
             body: JSON.stringify({
                 idRol: id,
-                Tipo_Rol: rol.Tipo_Rol, 
+                Tipo_Rol: rol.Tipo_Rol,
             }),
         });
 
@@ -621,7 +621,7 @@ export const deleteSeguridad = async (id) => {
     return await response.json();
 };
 
-const SitiosTuristicos_URL ="http://localhost/destinix/sitios.php";
+const SitiosTuristicos_URL = "http://localhost/destinix/sitios.php";
 
 export const getSitiosTuristicos = async () => {
     const res = await fetch(SitiosTuristicos_URL);
@@ -631,7 +631,7 @@ export const getSitiosTuristicos = async () => {
 export const addSitioTuristico = async (formData) => {
     const res = await fetch(SitiosTuristicos_URL, {
         method: "POST",
-        body: formData, 
+        body: formData,
     });
     return await res.json();
 };
@@ -652,4 +652,44 @@ export const deleteSitioTuristico = async (id) => {
         body: JSON.stringify({ id_sitio: id }),
     });
     return await res.json();
+};
+
+const URL_PAGO = "http://localhost/destinix/soportes_pago.php";
+
+export const getSoportesPago = async () => {
+    const response = await fetch(URL_PAGO, {
+        method: "GET",
+        credentials: "include",
+    });
+    return await response.json();
+};
+
+export const addSoportePago = async (data) => {
+    const response = await fetch(URL_PAGO, {
+        method: "POST",
+        credentials: "include",
+        body: data,
+        
+    });
+    return await response.json();
+};
+
+export const updateSoportePago = async (id, data) => {
+    const response = await fetch(`${URL_PAGO}?id=${id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: new URLSearchParams(data)
+    });
+    return await response.json();
+};
+
+export const deleteSoportePago = async (id) => {
+    const response = await fetch(`${URL_PAGO}?id=${id}`, {
+        method: "DELETE",
+        credentials: "include",
+    });
+    return await response.json();
 };

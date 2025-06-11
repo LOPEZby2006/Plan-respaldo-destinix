@@ -37,6 +37,7 @@ const AdminSidebar = () => {
         { path: "/admin/seguridad", label: "Seguridad", icon: "shield-alt" }, 
         { path: "/admin/persona", label: "Persona", icon: "users" }, 
         { path: "/admin/sitio_turistico", label: "Sitio Turístico", icon: "map-marker-alt" }, 
+        { path: "/admin/soporte_pago", label: "Soporte de Pagos", icon: "file-invoice-dollar" },
     ];
 
     return (

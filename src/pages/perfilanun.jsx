@@ -14,6 +14,7 @@ const PerfilAnunciante = () => {
         titulo_hotel: "",
         descripcion_hotel: "",
         img: null,
+        soporte_pago: null,
     });
     const [previewHotel, setPreviewHotel] = useState(null);
 
@@ -41,11 +42,16 @@ const PerfilAnunciante = () => {
         const { name, value, files } = e.target;
         if (files) {
             setHotelForm({ ...hotelForm, [name]: files[0] });
-            setPreviewHotel(URL.createObjectURL(files[0]));
+
+            // Previsualizar solo la imagen del hotel (no el soporte de pago)
+            if (name === "img") {
+                setPreviewHotel(URL.createObjectURL(files[0]));
+            }
         } else {
             setHotelForm({ ...hotelForm, [name]: value });
         }
     };
+
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -178,6 +184,9 @@ const PerfilAnunciante = () => {
                         required
                     />
                     <input type="file" name="img" accept="image/*" onChange={handleHotelChange} required />
+                    <input type="file" name="soporte_pago" accept="image/*" onChange={handleHotelChange} required />
+                    <label>Adjunta el comprobante de pago</label>
+
 
                     {previewHotel && (
                         <div className={styles.preview}>

@@ -16,6 +16,7 @@ import Restaurantes from "./restaurantes";
 import Rol from "./rol";
 import Seguridad from "./seguridad";
 import SitioTuristico from "./SitioTuristico";
+import SoportePagos from "./soporte_pago";
 
 const AdminRoutes = () => {
     return (
@@ -40,6 +41,7 @@ const AdminRoutes = () => {
                 <Route path="rol" element={<Rol />} />
                 <Route path="seguridad" element={<Seguridad />} />
                 <Route path="sitio_turistico" element={<SitioTuristico />} />
+                <Route path="soporte_pago" element={<SoportePagos />} />
             </Route>
         </Routes>
     );
