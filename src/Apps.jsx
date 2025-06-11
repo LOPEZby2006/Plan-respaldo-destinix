@@ -1,5 +1,3 @@
-// Esto es una prueba de commit desde cmd
-
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/sidebar";
