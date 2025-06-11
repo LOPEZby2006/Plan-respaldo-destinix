@@ -1,0 +1,154 @@
+.perfilContainer {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    font-family: Arial, sans-serif;
+}
+
+.titulo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.titulo p {
+    display: inline;
+    color: #0077cc;
+}
+
+.imgPerfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid #0077cc;
+}
+
+.infoBloque {
+    background-color: #f3f3f3;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.botonEditar,
+.botonGuardar,
+.botonCancelar {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botonEditar {
+    background-color: #0077cc;
+    color: white;
+}
+
+.botonGuardar {
+    background-color: #28a745;
+    color: white;
+}
+
+.botonCancelar {
+    background-color: #dc3545;
+    color: white;
+}
+
+.formEditar input {
+    display: block;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.botones {
+    display: flex;
+    gap: 1rem;
+}
+
+.seccionPerfil,
+.seccionFormulario,
+.seccionHoteles {
+    border: 1px solid #ccc;
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.seccionFormulario input,
+.seccionFormulario textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.formHotel button {
+    background-color: #0077cc;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.preview {
+    background-color: #eef6ff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 1px solid #cce4ff;
+    text-align: center;
+}
+
+.preview img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0.5rem;
+}
+
+.listaHoteles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.hotelItem {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #fafafa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.hotelItem img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.hotelItem h4 {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #0077cc;
+}
+
+.hotelItem p {
+    font-size: 0.95rem;
+    color: #333;
+}
