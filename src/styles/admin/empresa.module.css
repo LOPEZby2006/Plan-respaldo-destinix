@@ -1,0 +1,89 @@
+.contenedor {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+}
+
+.titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    background-color: #fff;
+}
+
+.boton {
+    grid-column: span 2;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background-color: #1d4ed8;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.encabezado {
+    background-color: #e5e7eb;
+}
+
+.celda {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.botonEditar {
+    background-color: #facc15;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    margin-right: 0.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.botonEditar:hover {
+    background-color: #eab308;
+}
+
+.botonEliminar {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.botonEliminar:hover {
+    background-color: #dc2626;
+}

@@ -1,0 +1,90 @@
+.contenedor {
+    padding: 1rem;
+}
+
+.titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+}
+
+.textarea {
+    grid-column: span 2;
+    resize: vertical;
+}
+
+.botonEnviar {
+    grid-column: span 2;
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botonEnviar:hover {
+    background-color: #2563eb;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d1d5db;
+}
+
+.encabezado {
+    background-color: #e5e7eb;
+}
+
+.celda {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.descripcion {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.imagen {
+    width: 80px;
+    height: 56px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+}
+
+.botonEditar {
+    background-color: #facc15;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.botonEliminar {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+}

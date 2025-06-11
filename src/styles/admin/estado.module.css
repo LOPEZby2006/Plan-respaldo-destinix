@@ -1,0 +1,85 @@
+.contenedor {
+    padding: 1rem;
+}
+
+.titulo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.formulario {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.input {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    width: 16rem;
+}
+
+.botonAgregar {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botonAgregar:hover {
+    background-color: #2563eb;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #d1d5db;
+}
+
+.filaEncabezado {
+    background-color: #e5e7eb;
+}
+
+.fila:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.celda {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    text-align: left;
+}
+
+.botonEditar {
+    background-color: #facc15;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botonEditar:hover {
+    background-color: #eab308;
+}
+
+.botonEliminar {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.botonEliminar:hover {
+    background-color: #dc2626;
+}

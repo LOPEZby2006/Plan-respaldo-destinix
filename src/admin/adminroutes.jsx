@@ -15,7 +15,7 @@ import Persona from "./persona";
 import Restaurantes from "./restaurantes";
 import Rol from "./rol";
 import Seguridad from "./seguridad";
-import SitioTuristico from "./sitio_turistico";
+import SitioTuristico from "./SitioTuristico";
 
 const AdminRoutes = () => {
     return (

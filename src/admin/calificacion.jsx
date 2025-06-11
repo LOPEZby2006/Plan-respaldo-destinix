@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import styles from "../styles/admin/calificacion.module.css";
 import {
     getCalificaciones,
     addCalificacion,
     updateCalificacion,
     deleteCalificacion,
-} from "../services/api";
+} from "../services/admin/api";
 
 const Calificacion = () => {
     const [calificaciones, setCalificaciones] = useState([]);
@@ -43,10 +44,10 @@ const Calificacion = () => {
     }, []);
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">Gestión de Calificaciones</h2>
+        <div className={styles.contenedor}>
+            <h2 className={styles.titulo}>Gestión de Calificaciones</h2>
 
-            <form onSubmit={handleSubmit} className="mb-4 flex gap-2">
+            <form onSubmit={handleSubmit} className={styles.formulario}>
                 <input
                     type="number"
                     step="0.1"
@@ -54,37 +55,37 @@ const Calificacion = () => {
                     max="5"
                     value={puntuacion}
                     onChange={(e) => setPuntuacion(e.target.value)}
-                    className="border p-2 rounded w-40"
+                    className={styles.input}
                     placeholder="Puntuación"
                 />
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                <button type="submit" className={styles.botonAgregar}>
                     {editando ? "Actualizar" : "Agregar"}
                 </button>
             </form>
 
-            <table className="min-w-full border border-gray-300">
+            <table className={styles.tabla}>
                 <thead>
-                    <tr className="bg-gray-200">
-                        <th className="p-2 border">ID</th>
-                        <th className="p-2 border">Puntuación</th>
-                        <th className="p-2 border">Acciones</th>
+                    <tr className={styles.filaEncabezado}>
+                        <th className={styles.celdaEncabezado}>ID</th>
+                        <th className={styles.celdaEncabezado}>Puntuación</th>
+                        <th className={styles.celdaEncabezado}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {calificaciones.map((cal) => (
-                        <tr key={cal.id_calificacion}>
-                            <td className="p-2 border">{cal.id_calificacion}</td>
-                            <td className="p-2 border">{cal.puntuacion}</td>
-                            <td className="p-2 border">
+                        <tr key={cal.id_calificacion} className={styles.fila}>
+                            <td className={styles.celda}>{cal.id_calificacion}</td>
+                            <td className={styles.celda}>{cal.puntuacion}</td>
+                            <td className={styles.celda}>
                                 <button
                                     onClick={() => handleEditar(cal)}
-                                    className="bg-yellow-400 text-white px-2 py-1 mr-2 rounded"
+                                    className={styles.botonEditar}
                                 >
                                     Editar
                                 </button>
                                 <button
                                     onClick={() => handleEliminar(cal.id_calificacion)}
-                                    className="bg-red-500 text-white px-2 py-1 rounded"
+                                    className={styles.botonEliminar}
                                 >
                                     Eliminar
                                 </button>

@@ -1,0 +1,99 @@
+.contenedor {
+    padding: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.titulo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.formulario {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.botonAgregar {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.botonAgregar:hover {
+    background-color: #2563eb;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.filaEncabezado {
+    background-color: #e5e7eb;
+    text-align: left;
+}
+
+.celdaEncabezado {
+    padding: 0.75rem;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+}
+
+.celda {
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+
+.botonEditar {
+    background-color: #facc15;
+    color: #fff;
+    padding: 0.3rem 0.7rem;
+    margin-right: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.botonEditar:hover {
+    background-color: #eab308;
+}
+
+.botonEliminar {
+    background-color: #ef4444;
+    color: white;
+    padding: 0.3rem 0.7rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.botonEliminar:hover {
+    background-color: #dc2626;
+}

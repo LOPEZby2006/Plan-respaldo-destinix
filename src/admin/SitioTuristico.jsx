@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "../styles/admin/sitioTuristico.module.css";
 import {
     getSitiosTuristicos,
     addSitioTuristico,
@@ -81,48 +82,57 @@ const SitioTuristico = () => {
     };
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">Gestión de Sitios Turísticos</h2>
-            <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 mb-4">
-                <input name="nombre_sitio" type="text" placeholder="Nombre" value={formData.nombre_sitio} onChange={handleChange} className="border p-2 rounded" required />
-                <input name="img_sitio" type="file" accept="imagenes/*" onChange={handleChange} className="border p-2 rounded" required={!editando} />
-                <input name="ubicacion_sitio" type="text" placeholder="Ubicación" value={formData.ubicacion_sitio} onChange={handleChange} className="border p-2 rounded" required />
-                <input name="desc_sitio" type="text" placeholder="Descripción" value={formData.desc_sitio} onChange={handleChange} className="border p-2 rounded" required />
-                <input name="persona_id_persona" type="number" placeholder="ID Persona" value={formData.persona_id_persona} onChange={handleChange} className="border p-2 rounded" required />
-                <input name="estado_id_estado" type="number" placeholder="ID Estado" value={formData.estado_id_estado} onChange={handleChange} className="border p-2 rounded" required />
-                <button type="submit" className="col-span-2 bg-blue-500 text-white py-2 rounded">
+        <div className={styles.contenedor}>
+            <h2 className={styles.titulo}>Gestión de Sitios Turísticos</h2>
+            <form onSubmit={handleSubmit} className={styles.formulario}>
+                <input name="nombre_sitio" type="text" placeholder="Nombre" value={formData.nombre_sitio} onChange={handleChange} className={styles.input} required />
+                <input name="img_sitio" type="file" accept="image/*" onChange={handleChange} className={styles.input} required={!editando} />
+                <input name="ubicacion_sitio" type="text" placeholder="Ubicación" value={formData.ubicacion_sitio} onChange={handleChange} className={styles.input} required />
+                <input name="desc_sitio" type="text" placeholder="Descripción" value={formData.desc_sitio} onChange={handleChange} className={styles.input} required />
+                <input name="persona_id_persona" type="number" placeholder="ID Persona" value={formData.persona_id_persona} onChange={handleChange} className={styles.input} required />
+                <input name="estado_id_estado" type="number" placeholder="ID Estado" value={formData.estado_id_estado} onChange={handleChange} className={styles.input} required />
+                <button type="submit" className={styles.boton}>
                     {editando ? "Actualizar" : "Agregar"}
                 </button>
             </form>
 
-            <table className="min-w-full border border-gray-300">
+            <table className={styles.tabla}>
                 <thead>
-                    <tr className="bg-gray-200">
-                        <th className="p-2 border">ID</th>
-                        <th className="p-2 border">Nombre</th>
-                        <th className="p-2 border">Imagen</th>
-                        <th className="p-2 border">Ubicación</th>
-                        <th className="p-2 border">Descripción</th>
-                        <th className="p-2 border">ID Persona</th>
-                        <th className="p-2 border">ID Estado</th>
-                        <th className="p-2 border">Acciones</th>
+                    <tr className={styles.filaEncabezado}>
+                        <th className={styles.celda}>ID</th>
+                        <th className={styles.celda}>Nombre</th>
+                        <th className={styles.celda}>Imagen</th>
+                        <th className={styles.celda}>Ubicación</th>
+                        <th className={styles.celda}>Descripción</th>
+                        <th className={styles.celda}>ID Persona</th>
+                        <th className={styles.celda}>ID Estado</th>
+                        <th className={styles.celda}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {sitios.map((sitio) => (
                         <tr key={sitio.id_sitio}>
-                            <td className="p-2 border">{sitio.id_sitio}</td>
-                            <td className="p-2 border">{sitio.nombre_sitio}</td>
-                            <td className="p-2 border">
-                                <img src={sitio.img_sitio} alt={sitio.img_sitio} className="w-20 h-14 object-cover" />
+                            <td className={styles.celda}>{sitio.id_sitio}</td>
+                            <td className={styles.celda}>{sitio.nombre_sitio}</td>
+                            <td className={styles.celda}>
+                                <img 
+                                    src={sitio.img_sitio} 
+                                    alt={sitio.nombre_sitio} 
+                                    className={styles.imagen}
+                                    onLoad={() => console.log('Imagen cargada:', sitio.img_sitio)}
+                                    onError={(e) => {
+                                        console.error('Error cargando imagen:', sitio.img_sitio);
+                                        console.log('URL completa:', e.target.src);
+                                    }}
+                                />
                             </td>
-                            <td className="p-2 border">{sitio.ubicacion_sitio}</td>
-                            <td className="p-2 border">{sitio.desc_sitio}</td>
-                            <td className="p-2 border">{sitio.persona_id_persona}</td>
-                            <td className="p-2 border">{sitio.estado_id_estado}</td>
-                            <td className="p-2 border">
-                                <button onClick={() => handleEditar(sitio)} className="bg-yellow-400 text-white px-2 py-1 mr-2 rounded">Editar</button>
-                                <button onClick={() => handleEliminar(sitio.id_sitio)} className="bg-red-500 text-white px-2 py-1 rounded">Eliminar</button>
+                            <td className={styles.celda}>{sitio.ubicacion_sitio}</td>
+                            <td className={styles.celda}>{sitio.desc_sitio}</td>
+                            <td className={styles.celda}>{sitio.persona_id_persona}</td>
+                            <td className={styles.celda}>{sitio.estado_id_estado}</td>
+                            <td className={styles.celda}>
+                                <button onClick={() => handleEditar(sitio)} className={styles.btnEditar}>Editar</button>
+                                <button onClick={() => handleEliminar(sitio.id_sitio)} className={styles.btnEliminar}>Eliminar</button>
                             </td>
                         </tr>
                     ))}

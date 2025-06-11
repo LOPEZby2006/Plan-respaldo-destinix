@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-    gethoteles,
-    addHoteles,
-    updatehoteles,
-    deletehoteles,
+    getHoteles,
+    addHotel,
+    updateHotel,
+    deleteHotel,
 } from "../services/admin/api";
+import styles from "../styles/admin/hoteles.module.css";
 
 const Hoteles = () => {
     const [hoteles, setHoteles] = useState([]);
@@ -18,7 +19,7 @@ const Hoteles = () => {
     const [editando, setEditando] = useState(null);
 
     const cargarHoteles = async () => {
-        const data = await gethoteles();
+        const data = await getHoteles();
         setHoteles(data);
     };
 
@@ -37,8 +38,8 @@ const Hoteles = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (editando) {
-            const { img, ...rest } = formData;
-            await updatehoteles(editando, rest);
+            const { img, ...datosSinImagen } = formData;
+            await updateHotel(editando, datosSinImagen);
         } else {
             const data = new FormData();
             data.append("titulo_hotel", formData.titulo_hotel);
@@ -46,7 +47,7 @@ const Hoteles = () => {
             data.append("descripcion_hotel", formData.descripcion_hotel);
             data.append("estado_id_estado", formData.estado_id_estado);
             data.append("empresa_id_empresa", formData.empresa_id_empresa);
-            await addHoteles(data);
+            await addHotel(data);
         }
 
         setFormData({
@@ -72,50 +73,103 @@ const Hoteles = () => {
     };
 
     const handleEliminar = async (id) => {
-        await deletehoteles(id);
+        await deleteHotel(id);
         cargarHoteles();
     };
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">Gestión de Hoteles</h2>
-            <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4 mb-4">
-                <input name="titulo_hotel" type="text" placeholder="Título" value={formData.titulo_hotel} onChange={handleChange} className="border p-2 rounded" required />
-                <input name="img" type="file" accept="image/*" onChange={handleChange} className="border p-2 rounded" required={!editando} />
-                <input name="descripcion_hotel" type="text" placeholder="Descripción" value={formData.descripcion_hotel} onChange={handleChange} className="border p-2 rounded" required />
-                <input name="estado_id_estado" type="number" placeholder="ID Estado" value={formData.estado_id_estado} onChange={handleChange} className="border p-2 rounded" required />
-                <input name="empresa_id_empresa" type="number" placeholder="ID Empresa" value={formData.empresa_id_empresa} onChange={handleChange} className="border p-2 rounded" required />
-                <button type="submit" className="col-span-2 bg-blue-500 text-white py-2 rounded">
+        <div className={styles.contenedor}>
+            <h2 className={styles.titulo}>Gestión de Hoteles</h2>
+            <form onSubmit={handleSubmit} className={styles.formulario}>
+                <input 
+                    name="titulo_hotel" 
+                    type="text" 
+                    placeholder="Título del Hotel" 
+                    value={formData.titulo_hotel} 
+                    onChange={handleChange} 
+                    className={styles.input} 
+                    required 
+                />
+                <input 
+                    name="img" 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleChange} 
+                    className={styles.input} 
+                    required={!editando} 
+                />
+                <textarea 
+                    name="descripcion_hotel" 
+                    placeholder="Descripción del Hotel" 
+                    value={formData.descripcion_hotel} 
+                    onChange={handleChange} 
+                    className={`${styles.input} ${styles.textarea}`} 
+                    rows="3"
+                    required 
+                />
+                <input 
+                    name="estado_id_estado" 
+                    type="number" 
+                    placeholder="ID Estado" 
+                    value={formData.estado_id_estado} 
+                    onChange={handleChange} 
+                    className={styles.input} 
+                    required 
+                />
+                <input 
+                    name="empresa_id_empresa" 
+                    type="number" 
+                    placeholder="ID Empresa" 
+                    value={formData.empresa_id_empresa} 
+                    onChange={handleChange} 
+                    className={styles.input} 
+                    required 
+                />
+                <button type="submit" className={styles.botonEnviar}>
                     {editando ? "Actualizar" : "Agregar"}
                 </button>
             </form>
 
-            <table className="min-w-full border border-gray-300">
+            <table className={styles.tabla}>
                 <thead>
-                    <tr className="bg-gray-200">
-                        <th className="p-2 border">ID</th>
-                        <th className="p-2 border">Título</th>
-                        <th className="p-2 border">Imagen</th>
-                        <th className="p-2 border">Descripción</th>
-                        <th className="p-2 border">ID Estado</th>
-                        <th className="p-2 border">ID Empresa</th>
-                        <th className="p-2 border">Acciones</th>
+                    <tr className={styles.encabezado}>
+                        <th className={styles.celda}>ID</th>
+                        <th className={styles.celda}>Título</th>
+                        <th className={styles.celda}>Imagen</th>
+                        <th className={styles.celda}>Descripción</th>
+                        <th className={styles.celda}>ID Estado</th>
+                        <th className={styles.celda}>ID Empresa</th>
+                        <th className={styles.celda}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {hoteles.map((hotel) => (
                         <tr key={hotel.id_hoteles}>
-                            <td className="p-2 border">{hotel.id_hoteles}</td>
-                            <td className="p-2 border">{hotel.titulo_hotel}</td>
-                            <td className="p-2 border">
-                                <img src={hotel.img} alt={hotel.titulo_hotel} className="w-20 h-14 object-cover" />
+                            <td className={styles.celda}>{hotel.id_hoteles}</td>
+                            <td className={styles.celda}>{hotel.titulo_hotel}</td>
+                            <td className={styles.celda}>
+                                <img 
+                                    src={hotel.img} 
+                                    alt={hotel.titulo_hotel} 
+                                    className={styles.imagen} 
+                                />
                             </td>
-                            <td className="p-2 border">{hotel.descripcion_hotel}</td>
-                            <td className="p-2 border">{hotel.estado_id_estado}</td>
-                            <td className="p-2 border">{hotel.empresa_id_empresa}</td>
-                            <td className="p-2 border">
-                                <button onClick={() => handleEditar(hotel)} className="bg-yellow-400 text-white px-2 py-1 mr-2 rounded">Editar</button>
-                                <button onClick={() => handleEliminar(hotel.id_hoteles)} className="bg-red-500 text-white px-2 py-1 rounded">Eliminar</button>
+                            <td className={`${styles.celda} ${styles.descripcion}`}>{hotel.descripcion_hotel}</td>
+                            <td className={styles.celda}>{hotel.estado_id_estado}</td>
+                            <td className={styles.celda}>{hotel.empresa_id_empresa}</td>
+                            <td className={styles.celda}>
+                                <button 
+                                    onClick={() => handleEditar(hotel)} 
+                                    className={styles.botonEditar}
+                                >
+                                    Editar
+                                </button>
+                                <button 
+                                    onClick={() => handleEliminar(hotel.id_hoteles)} 
+                                    className={styles.botonEliminar}
+                                >
+                                    Eliminar
+                                </button>
                             </td>
                         </tr>
                     ))}
