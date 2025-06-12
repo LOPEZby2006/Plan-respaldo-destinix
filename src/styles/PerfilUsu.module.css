@@ -1,0 +1,98 @@
+.perfilcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    background-color: #f4f6f900;
+}
+
+.perfilcard {
+    background-color: white;
+    margin-right: 20%;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.perfilcard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.perfilfoto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px auto;
+    border: 4px solid #004080;
+    display: block;
+}
+
+
+.perfilcard h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.perfilcard p {
+    margin: 10px 0;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.perfilcard strong {
+    color: #000;
+}
+
+.perfilinput {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.perfilinput:focus {
+    border-color: #004080;
+    outline: none;
+}
+
+.botonesaccion {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.editarbtn,
+.guardarbtn,
+.cancelarbtn {
+    background-color: #004080;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.cancelarbtn {
+    background-color: #888;
+}
+
+.editarbtn:hover,
+.guardarbtn:hover {
+    background-color: #002f5f;
+}
+
+.cancelarbtn:hover {
+    background-color: #666;
+}
