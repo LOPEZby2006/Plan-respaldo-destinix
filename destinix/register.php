@@ -1,15 +1,17 @@
 <?php
+// Encabezados CORS — Solo una vez, y bien configurados
 header("Access-Control-Allow-Origin: https://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Content-Type: application/json");
+header("Content-Type: application/json; charset=UTF-8");
 
-// Manejo de preflight request
+// Manejo de preflight (petición OPTIONS)
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
     exit();
 }
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -20,6 +22,7 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 error_reporting(E_ALL);
 
+// Manejo de errores fatales
 register_shutdown_function(function () {
     $error = error_get_last();
     if ($error && in_array($error['type'], [E_ERROR, E_PARSE])) {
@@ -28,14 +31,9 @@ register_shutdown_function(function () {
     }
 });
 
-header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Authorization, Content-Type");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Credentials: true");
-
 include "conexion.php";
 
+// Obtener datos JSON del frontend
 $data = json_decode(file_get_contents("php://input"), true);
 
 $nombre = $conexion->real_escape_string($data['nombre'] ?? '');
@@ -48,7 +46,7 @@ $genero = $conexion->real_escape_string($data['genero'] ?? '');
 $fecha = $conexion->real_escape_string($data['fecha'] ?? '');
 $contraseña = $conexion->real_escape_string($data['contraseña'] ?? '');
 
-// Validaciones básicas
+// Validaciones
 if (
     empty($nombre) || empty($apellidos) || empty($telefono) || empty($email) ||
     empty($documento) || empty($localidad) || empty($genero) || empty($fecha) || empty($contraseña)
@@ -90,7 +88,6 @@ if (!$fecha_nacimiento) {
     exit();
 }
 $edad = $hoy->diff($fecha_nacimiento)->y;
-
 if ($edad < 18) {
     ob_end_clean();
     echo json_encode(["success" => false, "message" => "Debes tener al menos 18 años para registrarte"]);
@@ -100,7 +97,7 @@ if ($edad < 18) {
 $hash = password_hash($contraseña, PASSWORD_BCRYPT);
 
 try {
-    // Verificar si teléfono existe
+    // Teléfono
     $stmt = $conexion->prepare("SELECT telefono_usu FROM persona WHERE telefono_usu = ?");
     $stmt->bind_param("s", $telefono);
     $stmt->execute();
@@ -111,7 +108,7 @@ try {
     }
     $stmt->close();
 
-    // Verificar si documento existe
+    // Documento
     $stmt = $conexion->prepare("SELECT documento FROM persona WHERE documento = ?");
     $stmt->bind_param("s", $documento);
     $stmt->execute();
@@ -131,10 +128,9 @@ try {
     $id_seguridad = $stmt->insert_id;
     $stmt->close();
 
-    // Generar token y guardar
+    // Token de verificación
     $token = bin2hex(random_bytes(16));
     $url_verificacion = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/verificar.php?token=$token";
-
     $stmt = $conexion->prepare("UPDATE seguridad SET token_verificacion = ? WHERE id_seguridad = ?");
     $stmt->bind_param("si", $token, $id_seguridad);
     if (!$stmt->execute()) {
@@ -148,35 +144,32 @@ try {
         nombre_usu, apellido_usu, tipo_documento, documento, email_usu, telefono_usu, genero, localidad, fecha_nacimiento, contraseña, id_seguridad, rol_idRol
     ) VALUES (?, ?, 'CC', ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssssssssi", $nombre, $apellidos, $documento, $email, $telefono, $genero, $localidad, $fecha, $hash, $id_seguridad, $rol_idRol);
-
     if (!$stmt->execute()) {
         throw new Exception("Error al registrar usuario: " . $stmt->error);
     }
     $stmt->close();
 
-    // Enviar correo con PHPMailer
+    // Correo de verificación
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'destinix.sas@gmail.com';  // Tu email SMTP
-        $mail->Password = 'ichz hebr vnyr rtsz';    // Tu contraseña SMTP o app password
+        $mail->Username = 'destinix.sas@gmail.com';
+        $mail->Password = 'ichz hebr vnyr rtsz'; // Usa una app password segura
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         $mail->setFrom('no-reply@destinix.com', 'Destinix');
         $mail->addAddress($email, $nombre);
-
         $mail->isHTML(true);
-        $mail->Subject = "Verifica tu correo electronico";
+        $mail->Subject = "Verifica tu correo electrónico";
         $mail->Body = "
             <p>Hola $nombre,</p>
             <p>Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico:</p>
             <a href='$url_verificacion'>$url_verificacion</a>
             <p>Gracias.</p>
         ";
-
         $mail->send();
     } catch (Exception $e) {
         throw new Exception("No se pudo enviar el correo de verificación: {$mail->ErrorInfo}");
