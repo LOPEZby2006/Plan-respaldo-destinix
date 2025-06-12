@@ -13,7 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
     exit();
 }
-session_start();
+
+// incluir conexión aquí SIN espacios ni líneas en blanco antes
+include 'conexion.php';
+
 $mysqli = include "conexion.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
