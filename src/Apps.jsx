@@ -10,12 +10,12 @@ import ProtectedRoute from "./components/Protectedroute";
 import Perfilusu from "./pages/perfilusu";
 import PerfilAnunciante from "./pages/perfilanun"
 
-import "../src/styles/Apps.css";
+import styles from"../src/styles/Apps.module.css";
 
 const Layout = ({ children }) => (
-    <div className="app-container">
+    <div className={styles.appcontainer}>
         <Sidebar />
-        <div className="content">{children}</div>
+        <div className={styles.content}>{children}</div>
     </div>
 );
 
