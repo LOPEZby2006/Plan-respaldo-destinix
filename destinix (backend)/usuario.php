@@ -1,17 +1,13 @@
 <?php
 session_start();
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Credentials: true");
 
-$conexion = new mysqli("localhost", "root", "", "destinix");
-
-if ($conexion->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conexion->connect_error]));
-}
+include "conexion.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -27,7 +23,7 @@ if (isset($_SESSION['id_persona'])) {
             $data = $resultado->fetch_assoc();
 
             if (!empty($data["foto_perfil"])) {
-                $data["foto_perfil"] = "http://localhost/destinix/imagenes/" . $data["foto_perfil"];
+                $data["foto_perfil"] = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/" . $data["foto_perfil"];
             }
         }
 
@@ -61,7 +57,7 @@ if (isset($_SESSION['id_persona'])) {
         }
 
         if ($conexion->query($query) === TRUE) {
-            echo json_encode(["success" => true, "foto_perfil" => $foto_perfil ? "http://localhost/destinix/imagenes/$fileName" : null]);
+            echo json_encode(["success" => true, "foto_perfil" => $foto_perfil ? "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$fileName" : null]);
         } else {
             echo json_encode(["error" => "Error actualizando datos: " . $conexion->error]);
         }

@@ -26,9 +26,9 @@ const EmpresaForm = () => {
   const fetchData = async () => {
     try {
       const [empRes, perRes, catRes] = await Promise.all([
-        axios.get("http://localhost/destinix/api/Empresa/EmpresaController.php"),
-        axios.get("http://localhost/destinix/api/Persona/PersonaController.php"),
-        axios.get("http://localhost/destinix/api/Categoria/CategoriaController.php"),
+        axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Empresa/EmpresaController.php"),
+        axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Persona/PersonaController.php"),
+        axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php"),
       ]);
       setEmpresas(empRes.data);
       setPersonas(perRes.data);
@@ -64,10 +64,10 @@ const EmpresaForm = () => {
     try {
       if (editando) {
         datos.id_empresa = empresaId;
-        await axios.put("http://localhost/destinix/api/Empresa/EmpresaController.php", datos);
+        await axios.put("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Empresa/EmpresaController.php", datos);
         alert("Empresa actualizada correctamente");
       } else {
-        await axios.post("http://localhost/destinix/api/Empresa/EmpresaController.php", datos);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Empresa/EmpresaController.php", datos);
         alert("Empresa registrada exitosamente");
       }
 
@@ -96,7 +96,7 @@ const EmpresaForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de eliminar esta empresa?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/Empresa/EmpresaController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Empresa/EmpresaController.php?id=${id}`);
         fetchData();
       } catch (error) {
         console.error("Error al eliminar empresa:", error);

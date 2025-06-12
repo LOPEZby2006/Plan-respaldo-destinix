@@ -5,15 +5,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
 session_start();
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "destinix"; // Cambia esto por tu nombre de base de datos
-
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "error" => "Conexión fallida"]));
-}
+include "conexion.php";
 
 // ⚙️ Ruta para guardar imágenes
 $rutaImagenes = "soportes/";
@@ -21,7 +13,7 @@ $rutaImagenes = "soportes/";
 // ✅ OBTENER (GET)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sql = "SELECT * FROM soporte_pagos";
-    $result = $conn->query($sql);
+    $result = $conexion->query($sql);
 
     $soportes = [];
     while ($row = $result->fetch_assoc()) {
@@ -37,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postData = json_decode(file_get_contents("php://input"), true);
     if (isset($postData['accion']) && $postData['accion'] === 'eliminar') {
         $id = intval($postData['id_soporte']);
-        $stmt = $conn->prepare("DELETE FROM soporte_pagos WHERE id_soporte = ?");
+        $stmt = $conexion->prepare("DELETE FROM soporte_pagos WHERE id_soporte = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         echo json_encode(["success" => $stmt->affected_rows > 0]);
@@ -63,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $rutaFinal = $rutaImagenes . $nombre;
 
             if (move_uploaded_file($_FILES["imagen_soporte"]["tmp_name"], $rutaFinal)) {
-                $stmt = $conn->prepare("INSERT INTO soporte_pagos (imagen_soporte, id_empresa, id_persona, restaurante_id, hotel_id, sitio_id, estado_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $conexion->prepare("INSERT INTO soporte_pagos (imagen_soporte, id_empresa, id_persona, restaurante_id, hotel_id, sitio_id, estado_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $stmt->bind_param("siiiiii", $nombre, $id_empresa, $id_persona, $restaurante_id, $hotel_id, $sitio_id, $estado_id);
 
                 if ($stmt->execute()) {
@@ -86,5 +78,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-$conn->close();
+$conexion->close();
 ?>

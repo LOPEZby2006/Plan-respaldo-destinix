@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: destinix
+-- Host: ambitious-forest-0ecbd371e.6.azurestaticapps.net    Database: destinix
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
 
@@ -282,11 +282,16 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_persona_delete
-BEFORE DELETE ON persona
-FOR EACH ROW
-BEGIN
-    DELETE FROM seguridad WHERE id_seguridad = OLD.id_seguridad;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`ambitious-forest-0ecbd371e.6.azurestaticapps.net`*/ /*!50003 TRIGGER before_persona_delete
+
+BEFORE DELETE ON persona
+
+FOR EACH ROW
+
+BEGIN
+
+    DELETE FROM seguridad WHERE id_seguridad = OLD.id_seguridad;
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

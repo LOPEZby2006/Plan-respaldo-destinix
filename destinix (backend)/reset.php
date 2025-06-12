@@ -1,19 +1,15 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-$servername = "localhost";
+$servername = "ambitious-forest-0ecbd371e.6.azurestaticapps.net";
 $username = "root";
 $password = "";
 $dbname = "destinix";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => 'Error de conexión.']);
-    exit;
-}
+include "conexion.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 $token = $data['token'] ?? '';
@@ -26,7 +22,7 @@ if (!$token || !$newPassword) {
 
 // Buscar usuario con ese token (tabla seguridad)
 $sql = "SELECT email_usu FROM seguridad WHERE token_recuperacion = ?";
-$stmt = $conn->prepare($sql);
+$stmt = $conexion->prepare($sql);
 $stmt->bind_param("s", $token);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -37,7 +33,7 @@ if ($row = $result->fetch_assoc()) {
 
     // Actualizar contraseña y limpiar token
     $updateSql = "UPDATE seguridad SET contra_usu = ?, token_recuperacion = NULL WHERE email_usu = ?";
-    $updateStmt = $conn->prepare($updateSql);
+    $updateStmt = $conexion->prepare($updateSql);
     $updateStmt->bind_param("ss", $hashedPassword, $email);
 
     if ($updateStmt->execute()) {
@@ -52,4 +48,4 @@ if ($row = $result->fetch_assoc()) {
 }
 
 $stmt->close();
-$conn->close();
+$conexion->close();

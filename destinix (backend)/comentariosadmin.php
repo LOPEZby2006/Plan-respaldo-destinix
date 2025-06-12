@@ -1,15 +1,11 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Credentials: true");
 
-$mysqli = new mysqli("localhost", "root", "", "destinix");
-if ($mysqli->connect_errno) {
-    echo json_encode(["success" => false, "message" => "Error de conexión a la base de datos."]);
-    exit();
-}
+include "conexion.php";
 
 // Manejo de preflight
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {

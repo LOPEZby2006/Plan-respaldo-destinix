@@ -7,7 +7,7 @@ import { fetchUsuario } from "../services/api";
 const Sidebar = () => {
     const [usuario, setUsuario] = useState({
         nombre: "",
-        foto: "http://localhost/destinix/imagenes/default.png",
+        foto: "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/default.png",
         rol: null,
     });
 
@@ -19,7 +19,7 @@ const Sidebar = () => {
                     setUsuario({
                         rol: data.rol_idRol,
                         nombre: data.nombre_usu,
-                        foto: data.foto_perfil || "http://localhost/destinix/imagenes/default.png",
+                        foto: data.foto_perfil || "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/default.png",
                     });
                 }
             } catch (error) {
@@ -64,7 +64,7 @@ const Sidebar = () => {
                         className={styles.profileLink}
                     >
                         <img
-                            src={usuario.foto || "http://localhost/destinix/imagenes/default.png"}
+                            src={usuario.foto || "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/default.png"}
                             alt="Foto de perfil"
                             className={styles.profileImage}
                         />

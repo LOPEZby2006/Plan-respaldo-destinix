@@ -27,7 +27,7 @@ const ReservaForm = () => {
 
   const fetchReservas = async () => {
     try {
-      const res = await axios.get("http://localhost/destinix/api/Reserva/ReservaController.php");
+      const res = await axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Reserva/ReservaController.php");
       setReservas(res.data);
     } catch (error) {
       console.error("Error al cargar reservas:", error);
@@ -60,13 +60,13 @@ const ReservaForm = () => {
 
     try {
       if (editando) {
-        await axios.post("http://localhost/destinix/api/Reserva/ReservaController.php?editar=1", {
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Reserva/ReservaController.php?editar=1", {
           ...form,
           id_reserva: idReserva
         });
         alert("Reserva actualizada");
       } else {
-        await axios.post("http://localhost/destinix/api/Reserva/ReservaController.php", form);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Reserva/ReservaController.php", form);
         alert("Reserva registrada");
       }
 
@@ -100,7 +100,7 @@ const ReservaForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Deseas eliminar esta reserva?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/Reserva/ReservaController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Reserva/ReservaController.php?id=${id}`);
         fetchReservas();
       } catch (error) {
         console.error("Error al eliminar reserva:", error);

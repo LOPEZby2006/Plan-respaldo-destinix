@@ -1,4 +1,4 @@
-const CALIFICACION_URL = "http://localhost/destinix/calificacion.php";
+const CALIFICACION_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/calificacion.php";
 
 export const getCalificaciones = async () => {
     const response = await fetch(CALIFICACION_URL);
@@ -34,7 +34,7 @@ export const deleteCalificacion = async (id) => {
     return await response.json();
 };
 
-const CATEGORIA_URL = "http://localhost/destinix/categoria.php";
+const CATEGORIA_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/categoria.php";
 
 
 export const getCategoria = async () => {
@@ -79,7 +79,7 @@ export const deleteCategoria = async (id) => {
     return await response.json();
 };
 
-const COMENTARIOS_URL = "http://localhost/destinix/comentarios.php";
+const COMENTARIOS_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentarios.php";
 
 
 export const getComentarios = async () => {
@@ -127,7 +127,7 @@ export const deleteComentarios = async (id) => {
     return await response.json();
 };
 
-const EMPRESA_URL = "http://localhost/destinix/empresa.php";
+const EMPRESA_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/empresa.php";
 
 
 export const getEmpresas = async () => {
@@ -153,7 +153,7 @@ export const addEmpresa = async (empresa) => {
 
 
 export const updateEmpresa = async (empresa) => {
-    const res = await fetch("http://localhost/destinix/empresa.php", {
+    const res = await fetch("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/empresa.php", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -165,14 +165,14 @@ export const updateEmpresa = async (empresa) => {
 
 
 export const deleteEmpresa = async (id) => {
-    const res = await fetch(`http://localhost/destinix/empresa.php?id=${id}`, {
+    const res = await fetch(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/empresa.php?id=${id}`, {
         method: "DELETE",
     });
     return res.json();
 };
 
 
-const ESTADO_URL = "http://localhost/destinix/estado.php";
+const ESTADO_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/estado.php";
 
 export const getEstados = async () => {
     try {
@@ -276,7 +276,7 @@ export const deleteEstado = async (id) => {
         throw error;
     }
 };
-const Hoteles_URL = "http://localhost/destinix/hoteles.php";
+const Hoteles_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/hoteles.php";
 
 export const getHoteles = async () => {
     const res = await fetch(Hoteles_URL);
@@ -311,7 +311,7 @@ export const deleteHotel = async (id) => {
 
 
 // services/api.js
-const BASE_URL = "http://localhost/destinix/usuarioadmin.php";
+const BASE_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/usuarioadmin.php";
 
 // Obtener todos los registros
 export const getPersonas = async () => {
@@ -361,7 +361,7 @@ export const updatePersona = async (id_persona, formData) => {
 
 
 
-const RESERVA_URL = "http://localhost/destinix/reserva.php";
+const RESERVA_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/reserva.php";
 
 
 export const getReservas = async () => {
@@ -411,7 +411,7 @@ export const deleteReserva = async (id) => {
     });
     return await response.json();
 };
-const API_URL = "http://localhost/destinix/restaurantes.php";
+const API_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/restaurantes.php";
 
 // Obtener todos los restaurantes
 export const getRestaurantes = async () => {
@@ -477,7 +477,7 @@ export const deleteRestaurante = async (id) => {
 };
 
 
-const ROL_URL = "http://localhost/destinix/roles.php";
+const ROL_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/roles.php";
 
 export const getRol = async () => {
     try {
@@ -577,7 +577,7 @@ export const deleteRol = async (id) => {
     }
 };
 
-const SEGURIDAD_URL = "http://localhost/destinix/seguridad.php";
+const SEGURIDAD_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/seguridad.php";
 
 export const getSeguridad = async () => {
     const response = await fetch(SEGURIDAD_URL);
@@ -621,7 +621,7 @@ export const deleteSeguridad = async (id) => {
     return await response.json();
 };
 
-const SitiosTuristicos_URL = "http://localhost/destinix/sitios.php";
+const SitiosTuristicos_URL = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/sitios.php";
 
 export const getSitiosTuristicos = async () => {
     const res = await fetch(SitiosTuristicos_URL);
@@ -654,7 +654,7 @@ export const deleteSitioTuristico = async (id) => {
     return await res.json();
 };
 
-const URL_PAGO = "http://localhost/destinix/soportes_pago.php";
+const URL_PAGO = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/soportes_pago.php";
 
 export const getSoportesPago = async () => {
     const response = await fetch(URL_PAGO, {

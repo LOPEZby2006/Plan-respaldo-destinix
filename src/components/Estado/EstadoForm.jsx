@@ -17,7 +17,7 @@ const EstadoForm = () => {
 
   const fetchEstados = async () => {
     try {
-      const response = await axios.get("http://localhost/destinix/api/Estado/EstadoController.php");
+      const response = await axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Estado/EstadoController.php");
       setEstados(response.data);
     } catch (error) {
       console.error("Error al cargar estados:", error);
@@ -39,10 +39,10 @@ const EstadoForm = () => {
     try {
       if (editando) {
         formData.append("id_estado", idEstado);
-        await axios.post("http://localhost/destinix/api/Estado/EstadoController.php?editar=1", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Estado/EstadoController.php?editar=1", formData);
         alert("Estado actualizado correctamente");
       } else {
-        await axios.post("http://localhost/destinix/api/Estado/EstadoController.php", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Estado/EstadoController.php", formData);
         alert("Estado registrado correctamente");
       }
 
@@ -66,7 +66,7 @@ const EstadoForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Está seguro de eliminar este estado?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/Estado/EstadoController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Estado/EstadoController.php?id=${id}`);
         fetchEstados();
       } catch (error) {
         console.error("Error al eliminar estado:", error);

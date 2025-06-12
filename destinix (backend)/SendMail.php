@@ -6,21 +6,13 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Authorization, Content-Type");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Credentials: true");
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "destinix";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'message' => 'Error de conexión']));
-}
+include "conexion.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 $email = $data['email'] ?? '';
@@ -31,7 +23,7 @@ if (empty($email)) {
 }
 
 // Verifica si el correo existe
-$stmt = $conn->prepare("SELECT id_persona FROM persona WHERE email_usu = ?");
+$stmt = $conexion->prepare("SELECT id_persona FROM persona WHERE email_usu = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->store_result();
@@ -40,12 +32,12 @@ if ($stmt->num_rows === 1) {
     $token = bin2hex(random_bytes(32));
 
     // Guarda el token en seguridad
-    $update = $conn->prepare("UPDATE seguridad SET token_recuperacion = ? WHERE email_usu = ?");
+    $update = $conexion->prepare("UPDATE seguridad SET token_recuperacion = ? WHERE email_usu = ?");
     $update->bind_param("ss", $token, $email);
     $update->execute();
 
-    // URL de recuperación (cambia localhost por tu IP local si lo pruebas en celular)
-    $url = "http://localhost:3000/resetpassword?token=" . $token;
+    // URL de recuperación (cambia ambitious-forest-0ecbd371e.6.azurestaticapps.net por tu IP local si lo pruebas en celular)
+    $url = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/resetpassword?token=" . $token;
 
     // Enviar correo
     $mail = new PHPMailer(true);
@@ -74,4 +66,4 @@ if ($stmt->num_rows === 1) {
     echo json_encode(['success' => false, 'message' => 'Correo no encontrado']);
 }
 
-$conn->close();
+$conexion->close();

@@ -33,7 +33,7 @@ const PersonaForm = () => {
 
   const fetchPersonas = async () => {
     try {
-      const res = await axios.get("http://localhost/destinix/api/Persona/PersonaController.php");
+      const res = await axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Persona/PersonaController.php");
       setPersonas(res.data);
     } catch (error) {
       console.error("Error al cargar personas:", error);
@@ -78,10 +78,10 @@ const PersonaForm = () => {
     try {
       if (editando) {
         formData.append("id_persona", idPersona);
-        await axios.post("http://localhost/destinix/api/Persona/PersonaController.php?editar=1", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Persona/PersonaController.php?editar=1", formData);
         alert("Persona actualizada");
       } else {
-        await axios.post("http://localhost/destinix/api/Persona/PersonaController.php", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Persona/PersonaController.php", formData);
         alert("Persona registrada");
       }
 
@@ -121,7 +121,7 @@ const PersonaForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Deseas eliminar esta persona?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/Persona/PersonaController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Persona/PersonaController.php?id=${id}`);
         fetchPersonas();
       } catch (error) {
         console.error("Error al eliminar persona:", error);

@@ -9,16 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'destinix';
-
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
+include "conexion.php";
+if ($conexion->connect_error) {
     http_response_code(500);
-    echo json_encode(["error" => "Conexión fallida: " . $conn->connect_error]);
+    echo json_encode(["error" => "Conexión fallida: " . $conexion->connect_error]);
     exit();
 }
 
@@ -27,7 +21,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
     case 'GET':
         $sql = "SELECT * FROM seguridad";
-        $result = $conn->query($sql);
+        $result = $conexion->query($sql);
 
         $data = [];
         while ($row = $result->fetch_assoc()) {
@@ -44,7 +38,7 @@ switch ($method) {
         $contra_usu = $input['contra_usu'] ?? $_POST['contra_usu'] ?? null;
 
         if ($email_usu && $contra_usu) {
-            $stmt = $conn->prepare("INSERT INTO seguridad (email_usu, contra_usu) VALUES (?, ?)");
+            $stmt = $conexion->prepare("INSERT INTO seguridad (email_usu, contra_usu) VALUES (?, ?)");
             $stmt->bind_param("ss", $email_usu, $contra_usu);
             $exec = $stmt->execute();
 
@@ -63,7 +57,7 @@ switch ($method) {
         $contra_usu = $input['contra_usu'] ?? null;
 
         if ($id && $email_usu && $contra_usu) {
-            $stmt = $conn->prepare("UPDATE seguridad SET email_usu = ?, contra_usu = ? WHERE id_seguridad = ?");
+            $stmt = $conexion->prepare("UPDATE seguridad SET email_usu = ?, contra_usu = ? WHERE id_seguridad = ?");
             $stmt->bind_param("ssi", $email_usu, $contra_usu, $id);
             $exec = $stmt->execute();
 
@@ -78,7 +72,7 @@ switch ($method) {
         $id = $_GET['id'] ?? null;
 
         if ($id) {
-            $stmt = $conn->prepare("DELETE FROM seguridad WHERE id_seguridad = ?");
+            $stmt = $conexion->prepare("DELETE FROM seguridad WHERE id_seguridad = ?");
             $stmt->bind_param("i", $id);
             $exec = $stmt->execute();
 
@@ -93,4 +87,4 @@ switch ($method) {
         http_response_code(405);
         echo json_encode(["error" => "Método no permitido"]);
 }
-$conn->close();
+$conexion->close();

@@ -15,33 +15,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'destinix';
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    http_response_code(500);
-    echo json_encode(["error" => "Conexión fallida: " . $conn->connect_error]);
-    exit();
-}
+include "conexion.php";
 
 class EstadoModel {
-    private $conn;
+    private $conexion;
 
     public function __construct($conexion) {
-        $this->conn = $conexion;
+        $this->conexion = $conexion;
     }
 
     public function getEstados() {
         // CORRECCIÓN: Sin alias, devolver desc_estado tal como espera el frontend
         $sql = "SELECT id_estado, desc_estado FROM estado ORDER BY id_estado ASC";
-        return $this->conn->query($sql);
+        return $this->conexion->query($sql);
     }
 
     public function insertEstado($desc_estado) {
-        $stmt = $this->conn->prepare("INSERT INTO estado (desc_estado) VALUES (?)");
+        $stmt = $this->conexion->prepare("INSERT INTO estado (desc_estado) VALUES (?)");
         if (!$stmt) {
             return false;
         }
@@ -52,7 +42,7 @@ class EstadoModel {
     }
 
     public function updateEstado($id, $desc_estado) {
-        $stmt = $this->conn->prepare("UPDATE estado SET desc_estado = ? WHERE id_estado = ?");
+        $stmt = $this->conexion->prepare("UPDATE estado SET desc_estado = ? WHERE id_estado = ?");
         if (!$stmt) {
             return false;
         }
@@ -63,7 +53,7 @@ class EstadoModel {
     }
 
     public function deleteEstado($id) {
-        $stmt = $this->conn->prepare("DELETE FROM estado WHERE id_estado = ?");
+        $stmt = $this->conexion->prepare("DELETE FROM estado WHERE id_estado = ?");
         if (!$stmt) {
             return false;
         }
@@ -74,7 +64,7 @@ class EstadoModel {
     }
 }
 
-$model = new EstadoModel($conn);
+$model = new EstadoModel($conexion);
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -125,12 +115,12 @@ try {
                 echo json_encode([
                     "success" => true, 
                     "message" => "Estado agregado correctamente",
-                    "id" => $conn->insert_id
+                    "id" => $conexion->insert_id
                 ]);
             } else {
                 http_response_code(500);
                 echo json_encode([
-                    "error" => "Error al insertar estado: " . $conn->error
+                    "error" => "Error al insertar estado: " . $conexion->error
                 ]);
             }
             break;
@@ -163,7 +153,7 @@ try {
             } else {
                 http_response_code(500);
                 echo json_encode([
-                    "error" => "Error al actualizar estado: " . $conn->error
+                    "error" => "Error al actualizar estado: " . $conexion->error
                 ]);
             }
             break;
@@ -186,7 +176,7 @@ try {
             } else {
                 http_response_code(500);
                 echo json_encode([
-                    "error" => "Error al eliminar estado: " . $conn->error
+                    "error" => "Error al eliminar estado: " . $conexion->error
                 ]);
             }
             break;
@@ -200,7 +190,7 @@ try {
     http_response_code(500);
     echo json_encode(["error" => "Error del servidor: " . $e->getMessage()]);
 } finally {
-    $conn->close();
+    $conexion->close();
 }
 
 ?>

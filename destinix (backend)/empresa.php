@@ -13,55 +13,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Conexión a la base de datos
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'destinix';
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conn->connect_error]));
-}
+include "./conexion.php";
 
 // MODELO
 class EmpresaModel {
-    private $conn;
+    private $conexion;
 
     public function __construct($conexion) {
-        $this->conn = $conexion;
+        $this->conexion = $conexion;
     }
 
     public function getEmpresas() {
         $sql = "SELECT * FROM empresa";
-        return $this->conn->query($sql);
+        return $this->conexion->query($sql);
     }
 
     public function insertEmpresa($nombre, $direccion, $correo, $telefono, $persona_id, $id_categoria) {
-        $stmt = $this->conn->prepare("INSERT INTO empresa (nombre_emp, direccion_emp, correo_empresa, telefono_empresa, persona_id_persona, id_categoria) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->conexion->prepare("INSERT INTO empresa (nombre_emp, direccion_emp, correo_empresa, telefono_empresa, persona_id_persona, id_categoria) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssii", $nombre, $direccion, $correo, $telefono, $persona_id, $id_categoria);
         return $stmt->execute();
     }
 
     public function updateEmpresa($id, $nombre, $direccion, $correo, $telefono, $persona_id, $id_categoria) {
-        $stmt = $this->conn->prepare("UPDATE empresa SET nombre_emp = ?, direccion_emp = ?, correo_empresa = ?, telefono_empresa = ?, persona_id_persona = ?, id_categoria = ? WHERE id_empresa = ?");
+        $stmt = $this->conexion->prepare("UPDATE empresa SET nombre_emp = ?, direccion_emp = ?, correo_empresa = ?, telefono_empresa = ?, persona_id_persona = ?, id_categoria = ? WHERE id_empresa = ?");
         $stmt->bind_param("ssssiii", $nombre, $direccion, $correo, $telefono, $persona_id, $id_categoria, $id);
         return $stmt->execute();
     }
 
     public function deleteEmpresa($id) {
-        $stmt = $this->conn->prepare("DELETE FROM empresa WHERE id_empresa = ?");
+        $stmt = $this->conexion->prepare("DELETE FROM empresa WHERE id_empresa = ?");
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
 
     public function getEmpresasIdNombre() {
         $sql = "SELECT id_empresa, nombre_emp AS nombre_empresa FROM empresa";
-        return $this->conn->query($sql);
+        return $this->conexion->query($sql);
     }
 }
 
 // CONTROLADOR
-$model = new EmpresaModel($conn);
+$model = new EmpresaModel($conexion);
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 

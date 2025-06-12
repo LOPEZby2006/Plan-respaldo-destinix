@@ -20,11 +20,11 @@ const SitiosForm = () => {
   const [sitios, setSitios] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost/destinix/obtener_persona.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/obtener_persona.php")
       .then(res => setPersonas(res.data))
       .catch(err => console.error("Error al obtener personas:", err));
 
-    axios.get("http://localhost/destinix/obtener_estado.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/obtener_estado.php")
       .then(res => setEstados(res.data))
       .catch(err => console.error("Error al obtener estados:", err));
 
@@ -32,7 +32,7 @@ const SitiosForm = () => {
   }, []);
 
   const obtenerSitios = () => {
-    axios.get("http://localhost/destinix/api/sitios/SitiosController.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/sitios/SitiosController.php")
       .then(res => setSitios(Array.isArray(res.data) ? res.data : []))
       .catch(err => {
         console.error("Error al obtener sitios:", err);
@@ -54,10 +54,10 @@ const SitiosForm = () => {
     try {
       if (editando) {
         formData.append("id_sitio", sitioEditandoId);
-        await axios.post("http://localhost/destinix/api/sitios/SitiosController.php?editar=1", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/sitios/SitiosController.php?editar=1", formData);
         alert("Sitio actualizado correctamente");
       } else {
-        await axios.post("http://localhost/destinix/api/sitios/SitiosController.php", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/sitios/SitiosController.php", formData);
         alert("Sitio registrado exitosamente");
       }
 
@@ -88,7 +88,7 @@ const SitiosForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de eliminar este sitio?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/sitios/SitiosController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/sitios/SitiosController.php?id=${id}`);
         obtenerSitios();
       } catch (error) {
         console.error("Error al eliminar el sitio:", error);
@@ -152,7 +152,7 @@ const SitiosForm = () => {
                     <td>
                       {sitio.img_sitio ? (
                         <img
-                          src={`http://localhost/destinix/api/uploads/${sitio.img_sitio}`}
+                          src={`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/uploads/${sitio.img_sitio}`}
                           alt="Sitio"
                           width="80"
                           height="60"

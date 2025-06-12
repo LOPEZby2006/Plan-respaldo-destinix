@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Access-Control-Allow-Credentials: true");
@@ -17,17 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
-$mysqli = new mysqli("localhost", "root", "", "destinix");
-if ($mysqli->connect_errno) {
-    echo json_encode(["success" => false, "error" => "Error de conexión a la base de datos."]);
-    exit();
-}
+$mysqli = include "conexion.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 $input = json_decode(file_get_contents('php://input'), true);
 
 // Función para simplificar respuesta
-function sendResponse($code, $data) {
+function sendResponse($code, $data)
+{
     http_response_code($code);
     echo json_encode($data);
     exit;
@@ -130,20 +127,20 @@ switch ($method) {
         }
         break;
 
-        case 'PUT':
-            if (!isset($input['id_itinerario'])) {
-                sendResponse(400, ["success" => false, "error" => "ID del itinerario no proporcionado."]);
-            }
-            
-            $id = $input['id_itinerario'];
-            $nombre = $mysqli->real_escape_string($input['nombre']);
-            $horaInicio = $mysqli->real_escape_string($input['horaInicio']);
-            $horaFin = $mysqli->real_escape_string($input['horaFin']);
-            $sitioSeleccionado = $mysqli->real_escape_string($input['sitioSeleccionado']);
-            $fecha = $mysqli->real_escape_string($input['fecha']);
-            
-            // Dependiendo del tipo de evento, actualiza el campo correspondiente
-            $updateQuery = "UPDATE itinerario SET 
+    case 'PUT':
+        if (!isset($input['id_itinerario'])) {
+            sendResponse(400, ["success" => false, "error" => "ID del itinerario no proporcionado."]);
+        }
+
+        $id = $input['id_itinerario'];
+        $nombre = $mysqli->real_escape_string($input['nombre']);
+        $horaInicio = $mysqli->real_escape_string($input['horaInicio']);
+        $horaFin = $mysqli->real_escape_string($input['horaFin']);
+        $sitioSeleccionado = $mysqli->real_escape_string($input['sitioSeleccionado']);
+        $fecha = $mysqli->real_escape_string($input['fecha']);
+
+        // Dependiendo del tipo de evento, actualiza el campo correspondiente
+        $updateQuery = "UPDATE itinerario SET 
                 descripcion = '$nombre',
                 fecha_itinerario = '$fecha',
                 hora_inicio = '$horaInicio',
@@ -151,42 +148,41 @@ switch ($method) {
                 id_sitio = NULL,
                 id_restaurante = NULL,
                 id_hoteles = NULL"; // Eliminar tipo_actividad
-            
-            if ($input['tipoEvento'] === "hotel") {
-                $updateQuery .= ", id_hoteles = '$sitioSeleccionado'";
-            } elseif ($input['tipoEvento'] === "restaurante") {
-                $updateQuery .= ", id_restaurante = '$sitioSeleccionado'";
-            } elseif ($input['tipoEvento'] === "sitio_turistico") {
-                $updateQuery .= ", id_sitio = '$sitioSeleccionado'";
-            }
-            
-            $updateQuery .= " WHERE id_itinerario = $id";
-            
-            if ($mysqli->query($updateQuery)) {
-                sendResponse(200, ["success" => true]);
-            } else {
-                sendResponse(500, ["success" => false, "error" => $mysqli->error]);
-            }
-            break;
-        
 
-        case 'DELETE':
-            if (empty($_GET['id'])) {
-                sendResponse(400, ["error" => "Falta el id_itinerario para eliminar"]);
-            }
-        
-            $id = intval($_GET['id']);
-            $stmt = $mysqli->prepare("DELETE FROM itinerario WHERE id_itinerario = ?");
-            $stmt->bind_param('i', $id);
-        
-            if ($stmt->execute()) {
-                sendResponse(200, ["success" => "Evento eliminado correctamente"]);
-            } else {
-                sendResponse(500, ["error" => "Error al eliminar: " . $stmt->error]);
-            }
-            break;
+        if ($input['tipoEvento'] === "hotel") {
+            $updateQuery .= ", id_hoteles = '$sitioSeleccionado'";
+        } elseif ($input['tipoEvento'] === "restaurante") {
+            $updateQuery .= ", id_restaurante = '$sitioSeleccionado'";
+        } elseif ($input['tipoEvento'] === "sitio_turistico") {
+            $updateQuery .= ", id_sitio = '$sitioSeleccionado'";
+        }
+
+        $updateQuery .= " WHERE id_itinerario = $id";
+
+        if ($mysqli->query($updateQuery)) {
+            sendResponse(200, ["success" => true]);
+        } else {
+            sendResponse(500, ["success" => false, "error" => $mysqli->error]);
+        }
+        break;
+
+
+    case 'DELETE':
+        if (empty($_GET['id'])) {
+            sendResponse(400, ["error" => "Falta el id_itinerario para eliminar"]);
+        }
+
+        $id = intval($_GET['id']);
+        $stmt = $mysqli->prepare("DELETE FROM itinerario WHERE id_itinerario = ?");
+        $stmt->bind_param('i', $id);
+
+        if ($stmt->execute()) {
+            sendResponse(200, ["success" => "Evento eliminado correctamente"]);
+        } else {
+            sendResponse(500, ["error" => "Error al eliminar: " . $stmt->error]);
+        }
+        break;
 
     default:
         sendResponse(405, ["error" => "Método no permitido"]);
 }
-?>

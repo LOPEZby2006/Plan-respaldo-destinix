@@ -3,17 +3,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 header("Access-Control-Allow-Credentials: true");
 
-$conexion = new mysqli("localhost", "root", "", "destinix");
-
-if ($conexion->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conexion->connect_error]));
-}
+include "conexion.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 $inputData = json_decode(file_get_contents("php://input"), true);
@@ -28,7 +24,7 @@ if ($method === "GET") {
         while ($row = $resultado->fetch_assoc()) {
             // Construir la URL completa para la imagen
             if (!empty($row["img"])) {
-                $row["img"] = "http://localhost/destinix/imagenes/" . $row["img"];
+                $row["img"] = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/" . $row["img"];
             }
             $data[] = $row;
         }
@@ -69,7 +65,7 @@ if ($method === "POST") {
     $descripcion = $_POST["descripcion_hotel"];
     $estado = $_POST["estado_id_estado"];
     $empresa = $_POST["empresa_id_empresa"];
-    
+
 
     $query = "INSERT INTO hoteles (titulo_hotel, img, descripcion_hotel, estado_id_estado, empresa_id_empresa)
               VALUES ('$titulo', '$newFileName', '$descripcion', '$estado', '$empresa')";
@@ -129,4 +125,3 @@ if ($method === "DELETE") {
 }
 
 $conexion->close();
-?>

@@ -20,11 +20,11 @@ const RestaurantesForm = () => {
   const [restaurantes, setRestaurantes] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost/destinix/obtener_empresa.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/obtener_empresa.php")
       .then(res => setEmpresas(res.data))
       .catch(err => console.error("Error al obtener empresas:", err));
 
-    axios.get("http://localhost/destinix/obtener_estado.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/obtener_estado.php")
       .then(res => setEstados(res.data))
       .catch(err => console.error("Error al obtener estados:", err));
 
@@ -32,7 +32,7 @@ const RestaurantesForm = () => {
   }, []);
 
   const obtenerRestaurantes = () => {
-    axios.get("http://localhost/destinix/api/Restaurantes/RestaurantesController.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Restaurantes/RestaurantesController.php")
       .then(res => setRestaurantes(Array.isArray(res.data) ? res.data : []))
       .catch(err => {
         console.error("Error al obtener restaurantes:", err);
@@ -53,10 +53,10 @@ const RestaurantesForm = () => {
     try {
       if (editando) {
         formData.append("id_restaurante", restauranteEditandoId);
-        await axios.post("http://localhost/destinix/api/Restaurantes/RestaurantesController.php?editar=1", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Restaurantes/RestaurantesController.php?editar=1", formData);
         alert("Restaurante actualizado correctamente");
       } else {
-        await axios.post("http://localhost/destinix/api/Restaurantes/RestaurantesController.php", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Restaurantes/RestaurantesController.php", formData);
         alert("Restaurante registrado exitosamente");
       }
 
@@ -85,7 +85,7 @@ const RestaurantesForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de eliminar este restaurante?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/Restaurantes/RestaurantesController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Restaurantes/RestaurantesController.php?id=${id}`);
         obtenerRestaurantes();
       } catch (error) {
         console.error("Error al eliminar el restaurante:", error);
@@ -146,7 +146,7 @@ const RestaurantesForm = () => {
                     <td>
                       {restaurante.img ? (
                         <img
-                          src={`http://localhost/destinix/api/uploads/${restaurante.img}`}
+                          src={`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/uploads/${restaurante.img}`}
                           alt="Restaurante"
                           width="80"
                           height="60"

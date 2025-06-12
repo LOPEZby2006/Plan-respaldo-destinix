@@ -17,34 +17,25 @@ register_shutdown_function(function () {
     }
 });
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Authorization, Content-Type");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Credentials: true");
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "destinix";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    ob_end_clean();
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
+include "conexion.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$nombre = $conn->real_escape_string($data['nombre'] ?? '');
-$apellidos = $conn->real_escape_string($data['apellidos'] ?? '');
-$telefono = $conn->real_escape_string($data['telefono'] ?? '');
-$email = $conn->real_escape_string($data['email'] ?? '');
-$documento = $conn->real_escape_string($data['documento'] ?? '');
-$localidad = $conn->real_escape_string($data['localidad'] ?? '');
-$genero = $conn->real_escape_string($data['genero'] ?? '');
-$fecha = $conn->real_escape_string($data['fecha'] ?? '');
-$contraseña = $conn->real_escape_string($data['contraseña'] ?? '');
+$nombre = $conexion->real_escape_string($data['nombre'] ?? '');
+$apellidos = $conexion->real_escape_string($data['apellidos'] ?? '');
+$telefono = $conexion->real_escape_string($data['telefono'] ?? '');
+$email = $conexion->real_escape_string($data['email'] ?? '');
+$documento = $conexion->real_escape_string($data['documento'] ?? '');
+$localidad = $conexion->real_escape_string($data['localidad'] ?? '');
+$genero = $conexion->real_escape_string($data['genero'] ?? '');
+$fecha = $conexion->real_escape_string($data['fecha'] ?? '');
+$contraseña = $conexion->real_escape_string($data['contraseña'] ?? '');
 
 // Validaciones básicas
 if (
@@ -99,7 +90,7 @@ $hash = password_hash($contraseña, PASSWORD_BCRYPT);
 
 try {
     // Verificar si teléfono existe
-    $stmt = $conn->prepare("SELECT telefono_usu FROM persona WHERE telefono_usu = ?");
+    $stmt = $conexion->prepare("SELECT telefono_usu FROM persona WHERE telefono_usu = ?");
     $stmt->bind_param("s", $telefono);
     $stmt->execute();
     $stmt->store_result();
@@ -110,7 +101,7 @@ try {
     $stmt->close();
 
     // Verificar si documento existe
-    $stmt = $conn->prepare("SELECT documento FROM persona WHERE documento = ?");
+    $stmt = $conexion->prepare("SELECT documento FROM persona WHERE documento = ?");
     $stmt->bind_param("s", $documento);
     $stmt->execute();
     $stmt->store_result();
@@ -121,7 +112,7 @@ try {
     $stmt->close();
 
     // Insertar en seguridad
-    $stmt = $conn->prepare("INSERT INTO seguridad (email_usu, contra_usu) VALUES (?, ?)");
+    $stmt = $conexion->prepare("INSERT INTO seguridad (email_usu, contra_usu) VALUES (?, ?)");
     $stmt->bind_param("ss", $email, $hash);
     if (!$stmt->execute()) {
         throw new Exception("Error al insertar en seguridad: " . $stmt->error);
@@ -131,9 +122,9 @@ try {
 
     // Generar token y guardar
     $token = bin2hex(random_bytes(16));
-    $url_verificacion = "http://localhost/destinix/verificar.php?token=$token";
+    $url_verificacion = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/verificar.php?token=$token";
 
-    $stmt = $conn->prepare("UPDATE seguridad SET token_verificacion = ? WHERE id_seguridad = ?");
+    $stmt = $conexion->prepare("UPDATE seguridad SET token_verificacion = ? WHERE id_seguridad = ?");
     $stmt->bind_param("si", $token, $id_seguridad);
     if (!$stmt->execute()) {
         throw new Exception("Error al guardar token de verificación");
@@ -142,7 +133,7 @@ try {
 
     // Insertar en persona
     $rol_idRol = 1;
-    $stmt = $conn->prepare("INSERT INTO persona (
+    $stmt = $conexion->prepare("INSERT INTO persona (
         nombre_usu, apellido_usu, tipo_documento, documento, email_usu, telefono_usu, genero, localidad, fecha_nacimiento, contraseña, id_seguridad, rol_idRol
     ) VALUES (?, ?, 'CC', ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssssssssi", $nombre, $apellidos, $documento, $email, $telefono, $genero, $localidad, $fecha, $hash, $id_seguridad, $rol_idRol);
@@ -186,4 +177,4 @@ try {
     echo json_encode(["success" => false, "message" => $e->getMessage()]);
 }
 
-$conn->close();
+$conexion->close();

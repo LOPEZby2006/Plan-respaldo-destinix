@@ -17,11 +17,11 @@ const HotelesForm = () => {
   const [hoteles, setHoteles] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost/destinix/obtener_empresa.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/obtener_empresa.php")
       .then(res => setEmpresas(res.data))
       .catch(err => console.error("Error al obtener empresas:", err));
 
-    axios.get("http://localhost/destinix/obtener_estado.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/obtener_estado.php")
       .then(res => setEstados(res.data))
       .catch(err => console.error("Error al obtener estados:", err));
 
@@ -29,7 +29,7 @@ const HotelesForm = () => {
   }, []);
 
   const obtenerHoteles = () => {
-    axios.get("http://localhost/destinix/api/Hoteles/HotelesController.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Hoteles/HotelesController.php")
       .then(res => setHoteles(Array.isArray(res.data) ? res.data : []))
       .catch(err => {
         console.error("Error al obtener hoteles:", err);
@@ -50,10 +50,10 @@ const HotelesForm = () => {
     try {
       if (editando) {
         formData.append("id_hoteles", hotelEditandoId);
-        await axios.post("http://localhost/destinix/api/Hoteles/HotelesController.php?editar=1", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Hoteles/HotelesController.php?editar=1", formData);
         alert("Hotel actualizado correctamente");
       } else {
-        await axios.post("http://localhost/destinix/api/Hoteles/HotelesController.php", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Hoteles/HotelesController.php", formData);
         alert("Hotel registrado exitosamente");
       }
 
@@ -85,7 +85,7 @@ const HotelesForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de eliminar este hotel?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/Hoteles/HotelesController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Hoteles/HotelesController.php?id=${id}`);
         obtenerHoteles();
       } catch (error) {
         console.error("Error al eliminar el hotel:", error);
@@ -146,7 +146,7 @@ const HotelesForm = () => {
                     <td>
                       {hotel.img ? (
                         <img
-                          src={`http://localhost/destinix/api/uploads/${hotel.img}`}
+                          src={`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/uploads/${hotel.img}`}
                           alt="Hotel"
                           width="80"
                           height="60"

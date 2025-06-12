@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
@@ -11,11 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-$conexion = new mysqli("localhost", "root", "", "destinix");
-
-if ($conexion->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conexion->connect_error]));
-}
+include "conexion.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 

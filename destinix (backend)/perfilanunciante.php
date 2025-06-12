@@ -1,17 +1,13 @@
 <?php
 session_start();
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
-$conexion = new mysqli("localhost", "root", "", "destinix");
-
-if ($conexion->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conexion->connect_error]));
-}
+include "conexion.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -36,7 +32,7 @@ if ($method === "GET") {
     $data = $result->fetch_assoc();
 
     if (!empty($data['foto_perfil'])) {
-        $data['foto_perfil'] = "http://localhost/destinix/imagenes/" . $data['foto_perfil'];
+        $data['foto_perfil'] = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/" . $data['foto_perfil'];
     }
 
     echo json_encode($data);
@@ -141,8 +137,8 @@ if ($method === "POST") {
 
         echo json_encode([
             "success" => true,
-            "foto_perfil" => $foto_perfil ? "http://localhost/destinix/imagenes/$foto_perfil" : null,
-            "imagen_soporte" => $imagen_soporte ? "http://localhost/destinix/imagenes/$imagen_soporte" : null
+            "foto_perfil" => $foto_perfil ? "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$foto_perfil" : null,
+            "imagen_soporte" => $imagen_soporte ? "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$imagen_soporte" : null
         ]);
     } catch (Exception $e) {
         $conexion->rollback();

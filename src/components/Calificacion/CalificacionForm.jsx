@@ -17,7 +17,7 @@ const CalificacionForm = () => {
   }, []);
 
   const obtenerCalificaciones = () => {
-    axios.get("http://localhost/destinix/api/Calificacion/CalificacionController.php")
+    axios.get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Calificacion/CalificacionController.php")
   .then(res => setCalificaciones(Array.isArray(res.data) ? res.data : []))
 
       .catch(err => {
@@ -35,10 +35,10 @@ const CalificacionForm = () => {
     try {
       if (editando) {
         formData.append("id_calificacion", calificacionEditandoId);
-        await axios.post("http://localhost/destinix/api/Calificacion/CalificacionController.php?editar=1", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Calificacion/CalificacionController.php?editar=1", formData);
         alert("Calificación actualizada correctamente");
       } else {
-        await axios.post("http://localhost/destinix/api/Calificacion/CalificacionController.php", formData);
+        await axios.post("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Calificacion/CalificacionController.php", formData);
         alert("Calificación registrada exitosamente");
       }
 
@@ -63,7 +63,7 @@ const CalificacionForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Estás seguro de eliminar esta calificación?")) {
       try {
-        await axios.delete(`http://localhost/destinix/api/Calificacion/CalificacionController.php?id=${id}`);
+        await axios.delete(`http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Calificacion/CalificacionController.php?id=${id}`);
         obtenerCalificaciones();
       } catch (error) {
         console.error("Error al eliminar la calificación:", error);

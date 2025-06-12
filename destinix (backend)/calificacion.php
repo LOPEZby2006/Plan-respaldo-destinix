@@ -12,50 +12,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Conexión a la base de datos
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'destinix';
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conn->connect_error]));
-}
+include "conexion.php";
 
 // Clase del modelo
 class CalificacionModel {
-    private $conn;
+    private $conexion;
 
     public function __construct($conexion) {
-        $this->conn = $conexion;
+        $this->conexion = $conexion;
     }
 
     public function getCalificaciones() {
         $sql = "SELECT * FROM calificacion";
-        return $this->conn->query($sql);
+        return $this->conexion->query($sql);
     }
 
     public function insertCalificacion($puntuacion) {
-        $stmt = $this->conn->prepare("INSERT INTO calificacion (puntuacion) VALUES (?)");
+        $stmt = $this->conexion->prepare("INSERT INTO calificacion (puntuacion) VALUES (?)");
         $stmt->bind_param("d", $puntuacion); 
         return $stmt->execute();
     }
 
     public function updateCalificacion($id, $puntuacion) {
-        $stmt = $this->conn->prepare("UPDATE calificacion SET puntuacion = ? WHERE id_calificacion = ?");
+        $stmt = $this->conexion->prepare("UPDATE calificacion SET puntuacion = ? WHERE id_calificacion = ?");
         $stmt->bind_param("di", $puntuacion, $id); 
         return $stmt->execute();
     }
 
     public function deleteCalificacion($id) {
-        $stmt = $this->conn->prepare("DELETE FROM calificacion WHERE id_calificacion = ?");
+        $stmt = $this->conexion->prepare("DELETE FROM calificacion WHERE id_calificacion = ?");
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
 }
 
 // Instanciar modelo
-$model = new CalificacionModel($conn);
+$model = new CalificacionModel($conexion);
 
 // Obtener método HTTP
 $method = $_SERVER['REQUEST_METHOD'];
@@ -115,5 +107,5 @@ switch ($method) {
 }
 
 // Cerrar conexión
-$conn->close();
+$conexion->close();
 ?>

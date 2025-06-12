@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -11,16 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     exit(0);
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "destinix";
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-if (!$conn) {
-    echo json_encode(['success' => false, 'message' => 'Error de conexión con la base de datos.']);
-    exit;
-}
+include "conexion.php";
 
 $data = json_decode(file_get_contents("php://input"), true);
 if (!isset($data['email']) || !isset($data['password'])) {
@@ -28,7 +19,7 @@ if (!isset($data['email']) || !isset($data['password'])) {
     exit;
 }
 
-$email = mysqli_real_escape_string($conn, $data['email']);
+$email = mysqli_real_escape_string($conexion, $data['email']);
 $contraseña = $data['password'];
 
 $sql = "SELECT 
@@ -41,7 +32,7 @@ $sql = "SELECT
         INNER JOIN seguridad s ON p.email_usu = s.email_usu 
         WHERE s.email_usu = ?";
 
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($conexion, $sql);
 if ($stmt) {
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
@@ -74,4 +65,4 @@ if ($stmt) {
     echo json_encode(['success' => false, 'message' => 'Error al preparar la consulta.']);
 }
 
-mysqli_close($conn);
+mysqli_close($conexion);

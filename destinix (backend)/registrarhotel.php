@@ -1,18 +1,14 @@
 <?php
 session_start();
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 // Conexión
-$conexion = new mysqli("localhost", "root", "", "destinix");
-if ($conexion->connect_error) {
-    echo json_encode(["error" => "Conexión fallida: " . $conexion->connect_error]);
-    exit;
-}
+$conexion = include "conexion.php";
 
 // Verifica sesión
 if (!isset($_SESSION['id_persona'])) {

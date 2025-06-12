@@ -1,32 +1,30 @@
 <?php
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
+include "conexion.php";
 
-$servername = "localhost";
-$username = "root";  // Usa tu propio nombre de usuario
-$password = "";  // Usa tu propia contraseña
-$dbname = "destinix";
+$response = [];
 
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $response = [];
-    
-    $stmt = $pdo->prepare("SELECT * FROM seguridad");
-    $stmt->execute();
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$query = "SELECT * FROM seguridad";
+$resultado = $conexion->query($query);
+
+if ($resultado) {
+    $data = [];
+
+    while ($fila = $resultado->fetch_assoc()) {
+        $data[] = $fila;
+    }
 
     $response['status'] = 'success';
     $response['data'] = $data;
-    
-    echo json_encode($response);
-} catch (PDOException $e) {
+} else {
     $response['status'] = 'error';
-    $response['message'] = $e->getMessage();
-    echo json_encode($response);
+    $response['message'] = 'Error al ejecutar la consulta.';
 }
+
+echo json_encode($response);
+$conexion->close();
 ?>

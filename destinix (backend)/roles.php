@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Conexión a la base de datos
-$host = 'localhost';
+$host = 'ambitious-forest-0ecbd371e.6.azurestaticapps.net';
 $user = 'root';
 $password = '';
 $dbname = 'destinix';
@@ -32,19 +32,19 @@ if ($conn->connect_error) {
 
 // Clase del modelo Rol
 class RolModel {
-    private $conn;
+    private $conexion;
 
     public function __construct($conexion) {
-        $this->conn = $conexion;
+        $this->conexion = $conexion;
     }
 
     public function getRoles() {
         $sql = "SELECT * FROM rol";
-        return $this->conn->query($sql);
+        return $this->conexion->query($sql);
     }
 
     public function insertRol($tipo_rol) {
-        $stmt = $this->conn->prepare("INSERT INTO rol (Tipo_Rol) VALUES (?)");
+        $stmt = $this->conexion->prepare("INSERT INTO rol (Tipo_Rol) VALUES (?)");
         if (!$stmt) {
             return false;
         }
@@ -55,7 +55,7 @@ class RolModel {
     }
 
     public function updateRol($id, $tipo_rol) {
-        $stmt = $this->conn->prepare("UPDATE rol SET Tipo_Rol = ? WHERE idRol = ?");
+        $stmt = $this->conexion->prepare("UPDATE rol SET Tipo_Rol = ? WHERE idRol = ?");
         if (!$stmt) {
             return false;
         }
@@ -66,7 +66,7 @@ class RolModel {
     }
 
     public function deleteRol($id) {
-        $stmt = $this->conn->prepare("DELETE FROM rol WHERE idRol = ?");
+        $stmt = $this->conexion->prepare("DELETE FROM rol WHERE idRol = ?");
         if (!$stmt) {
             return false;
         }
@@ -78,7 +78,7 @@ class RolModel {
 }
 
 // Instanciar modelo
-$model = new RolModel($conn);
+$model = new RolModel($conexion);
 
 // Manejo de métodos HTTP
 $method = $_SERVER['REQUEST_METHOD'];
@@ -129,12 +129,12 @@ try {
                 echo json_encode([
                     "success" => true,
                     "message" => "Rol agregado correctamente",
-                    "id" => $conn->insert_id
+                    "id" => $conexion->insert_id
                 ]);
             } else {
                 http_response_code(500);
                 echo json_encode([
-                    "error" => "Error al insertar rol: " . $conn->error
+                    "error" => "Error al insertar rol: " . $conexion->error
                 ]);
             }
             break;
@@ -172,7 +172,7 @@ try {
             } else {
                 http_response_code(500);
                 echo json_encode([
-                    "error" => "Error al actualizar rol: " . $conn->error
+                    "error" => "Error al actualizar rol: " . $conexion->error
                 ]);
             }
             break;
@@ -195,7 +195,7 @@ try {
             } else {
                 http_response_code(500);
                 echo json_encode([
-                    "error" => "Error al eliminar rol: " . $conn->error
+                    "error" => "Error al eliminar rol: " . $conexion->error
                 ]);
             }
             break;
@@ -209,7 +209,7 @@ try {
     http_response_code(500);
     echo json_encode(["error" => "Error del servidor: " . $e->getMessage()]);
 } finally {
-    $conn->close();
+    $conexion->close();
 }
 
 ?>

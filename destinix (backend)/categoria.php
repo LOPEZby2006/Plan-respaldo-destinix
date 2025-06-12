@@ -12,55 +12,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // Conexión
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$dbname = 'destinix';
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conn->connect_error]));
-}
+include "conexion.php";
 
 // Modelo
 class CategoriaModel {
-    private $conn;
+    private $conexion;
 
     public function __construct($conexion) {
-        $this->conn = $conexion;
+        $this->conexion = $conexion;
     }
 
     public function getCategorias() {
         $sql = "SELECT * FROM categoria";
-        return $this->conn->query($sql);
+        return $this->conexion->query($sql);
     }
 
     public function insertCategoria($nombre, $descripcion) {
-        $stmt = $this->conn->prepare("INSERT INTO categoria (nombre_cate, desc_cate) VALUES (?, ?)");
+        $stmt = $this->conexion->prepare("INSERT INTO categoria (nombre_cate, desc_cate) VALUES (?, ?)");
         $stmt->bind_param("ss", $nombre, $descripcion);
         return $stmt->execute();
     }
 
     public function updateCategoria($id, $nombre, $descripcion) {
-        $stmt = $this->conn->prepare("UPDATE categoria SET nombre_cate = ?, desc_cate = ? WHERE id_categoria = ?");
+        $stmt = $this->conexion->prepare("UPDATE categoria SET nombre_cate = ?, desc_cate = ? WHERE id_categoria = ?");
         $stmt->bind_param("ssi", $nombre, $descripcion, $id);
         return $stmt->execute();
     }
 
     public function deleteCategoria($id) {
-        $stmt = $this->conn->prepare("DELETE FROM categoria WHERE id_categoria = ?");
+        $stmt = $this->conexion->prepare("DELETE FROM categoria WHERE id_categoria = ?");
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
 
     public function getSimpleCategorias() {
         $sql = "SELECT id_categoria, nombre_cate FROM categoria";
-        return $this->conn->query($sql);
+        return $this->conexion->query($sql);
     }
 }
 
 // Controlador
-$model = new CategoriaModel($conn);
+$model = new CategoriaModel($conexion);
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
