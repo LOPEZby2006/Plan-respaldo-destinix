@@ -5,6 +5,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { getItinerario, addEvento, getSitiosPorTipo, deleteEvento, editEvento } from "../services/api";
 import Swal from "sweetalert2";
+import styles from "../styles/iti.module.css";
 
 const Itinerario = () => {
     const [events, setEvents] = useState([]);
@@ -130,129 +131,129 @@ const Itinerario = () => {
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Itinerario</h1>
+        <div className={styles.contenedor}>
+  <h1 className={styles.title}>Itinerario</h1>
 
-            <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
-                selectable={true}
-                select={handleDateSelect}
-                events={events.map(event => ({
-                    ...event,
-                    title: event.nombre_actividad, // Asegúrate de que este campo exista
-                    date: event.fecha_itinerario, // Asegúrate de que este campo exista
-                    extendedProps: {
-                        id: event.id_itinerario, // Asegúrate de que este campo exista
-                        tipo: event.tipo_actividad, // Asegúrate de que este campo exista
-                    }
-                }))}
-                eventColor="#FF5733"
-                eventTextColor="#fff"
-                eventContent={(eventInfo) => {
-                    return (
-                        <div className="event-content">
-                            <i className="fas fa-calendar-day"></i>
-                            <span>{eventInfo.event.title}</span>
-                        </div>
-                    );
-                }}
-                height="auto"
-                eventClick={handleEventClick} // Agrega esta línea
+  <div className={styles.row}>
+    <div className={styles.calendarioWrapper}>
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        selectable={true}
+        select={handleDateSelect}
+        events={events.map(event => ({
+          ...event,
+          title: event.nombre_actividad,
+          date: event.fecha_itinerario,
+          extendedProps: {
+            id: event.id_itinerario,
+            tipo: event.tipo_actividad,
+          },
+        }))}
+        eventColor="#FF5733"
+        eventTextColor="#fff"
+        eventContent={(eventInfo) => (
+          <div className={styles.eventcontent}>
+            <i className={styles.facalendarday}></i>
+            <span>{eventInfo.event.title}</span>
+          </div>
+        )}
+        height="auto"
+        eventClick={handleEventClick}
+      />
+    </div>
+
+    {selectedDates.length > 0 && (
+      <div className={styles.selectdate}>
+        <h2 className={styles.textselecdate}>Agregar Evento</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className={styles.textlabel}>Descripción:</label>
+            <input
+              type="text"
+              name="nombre"
+              value={formData.nombre}
+              onChange={handleInputChange}
+              required
+              className={styles.inputdate}
             />
+          </div>
 
-            {selectedDates.length > 0 && (
-                <div className="mt-6 bg-white p-4 rounded shadow">
-                    <h2 className="text-xl font-semibold mb-2">Agregar Evento</h2>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block font-medium">Descripción:</label>
-                            <input
-                                type="text"
-                                name="nombre"
-                                value={formData.nombre}
-                                onChange={handleInputChange}
-                                required
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
+          <div className="flex gap-4">
+            <div>
+              <label className={styles.textlabel}>Hora de Inicio:</label>
+              <input
+                type="time"
+                name="horaInicio"
+                value={formData.horaInicio}
+                onChange={handleInputChange}
+                required
+                className={styles.inputdate}
+              />
+            </div>
 
-                        <div className="flex gap-4">
-                            <div>
-                                <label className="block font-medium">Hora de Inicio:</label>
-                                <input
-                                    type="time"
-                                    name="horaInicio"
-                                    value={formData.horaInicio}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="border p-2 rounded"
-                                />
-                            </div>
+            <div>
+              <label className={styles.textlabel}>Hora de Fin:</label>
+              <input
+                type="time"
+                name="horaFin"
+                value={formData.horaFin}
+                onChange={handleInputChange}
+                required
+                className={styles.inputdate}
+              />
+            </div>
+          </div>
 
-                            <div>
-                                <label className="block font-medium">Hora de Fin:</label>
-                                <input
-                                    type="time"
-                                    name="horaFin"
-                                    value={formData.horaFin}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="border p-2 rounded"
-                                />
-                            </div>
-                        </div>
+          <div>
+            <label className={styles.textlabel}>Tipo de Evento:</label>
+            <select
+              name="tipoEvento"
+              value={formData.tipoEvento}
+              onChange={handleInputChange}
+              required
+              className={styles.inputdate}
+            >
+              <option value="">Selecciona un tipo</option>
+              <option value="hotel">Hotel</option>
+              <option value="restaurante">Restaurante</option>
+              <option value="sitio_turistico">Sitio Turístico</option>
+            </select>
+          </div>
 
-                        <div>
-                            <label className="block font-medium">Tipo de Evento:</label>
-                            <select
-                                name="tipoEvento"
-                                value={formData.tipoEvento}
-                                onChange={handleInputChange}
-                                required
-                                className="w-full border p-2 rounded"
-                            >
-                                <option value="">Selecciona un tipo</option>
-                                <option value="hotel">Hotel</option>
-                                <option value="restaurante">Restaurante</option>
-                                <option value="sitio_turistico">Sitio Turístico</option>
-                            </select>
-                        </div>
+          {formData.tipoEvento && (
+            <div>
+              <label className={styles.textlabel}>Selecciona un sitio:</label>
+              <select
+                name="sitioSeleccionado"
+                value={formData.sitioSeleccionado}
+                onChange={handleInputChange}
+                required
+                className={styles.inputdate}
+              >
+                <option value="">Selecciona una opción</option>
+                {sitios.length > 0 ? (
+                  sitios.map((sitio) => (
+                    <option key={sitio.id} value={sitio.id}>
+                      {sitio.nombre}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>No hay sitios disponibles</option>
+                )}
+              </select>
+            </div>
+          )}
 
-                        {formData.tipoEvento && (
-                            <div>
-                                <label className="block font-medium">Selecciona un sitio:</label>
-                                <select
-                                    name="sitioSeleccionado"
-                                    value={formData.sitioSeleccionado}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full border p-2 rounded"
-                                >
-                                    <option value="">Selecciona una opción</option>
-                                    {sitios.length > 0 ? (
-                                        sitios.map((sitio) => (
-                                            <option key={sitio.id} value={sitio.id}>
-                                                {sitio.nombre}
-                                            </option>
-                                        ))
-                                    ) : (
-                                        <option disabled>No hay sitios disponibles</option>
-                                    )}
-                                </select>
-                            </div>
-                        )}
+          <button type="submit" className={styles.button}>
+            Guardar Evento
+          </button>
+        </form>
+      </div>
+    )}
+  </div>
+</div>
 
-                        <button
-                            type="submit"
-                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                        >
-                            Guardar Evento
-                        </button>
-                    </form>
-                </div>
-            )}
-        </div>
     );
 };
 
