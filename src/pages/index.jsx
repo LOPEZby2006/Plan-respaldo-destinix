@@ -4,7 +4,6 @@ import styles from "../styles/style.module.css";
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 
-
 function Index() {
   useEffect(() => {
     let prevScrollPos = window.pageYOffset;
@@ -221,16 +220,10 @@ function Index() {
       <section id="redes-sociales" className={styles.socialmedia}>
         <h2 className={styles.h2}>Síguenos en redes sociales</h2>
         <p className={styles.p}>Mantente al día con nuestras promociones, eventos y noticias.</p>
-        <div className={styles.socialicons}>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-facebook-f"></i> Facebook
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-instagram"></i> Instagram
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-twitter"></i> Twitter
-          </a>
+        <div className="redes-sociales">
+          <a href="https://facebook.com"><FaFacebookF /></a>
+          <a href="https://instagram.com"><FaInstagram /></a>
+          <a href="https://twitter.com"><FaTwitter /></a>
         </div>
 
       </section>

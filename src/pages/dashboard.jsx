@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Sidebar from '../components/sidebar';
 import Header from '../components/Header';
 import Slider from '../components/Slider';
-import Card from '../components/card';
 import styles from "../styles/Dashboard.module.css";
 
 const Dashboard = () => {
