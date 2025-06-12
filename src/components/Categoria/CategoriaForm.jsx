@@ -19,7 +19,7 @@ const CategoriaForm = () => {
 
   const obtenerCategorias = () => {
     axios
-      .get("http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php")
+      .get("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php")
       .then((res) => setCategorias(Array.isArray(res.data) ? res.data : []))
       .catch((err) => {
         console.error("Error al obtener categorías:", err);
@@ -38,13 +38,13 @@ const CategoriaForm = () => {
       if (editando) {
         formData.append("id_categoria", categoriaEditandoId);
         await axios.post(
-          "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php?editar=1",
+          "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php?editar=1",
           formData
         );
         alert("Categoría actualizada correctamente");
       } else {
         await axios.post(
-          "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php",
+          "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php",
           formData
         );
         alert("Categoría registrada exitosamente");
@@ -73,7 +73,7 @@ const CategoriaForm = () => {
     if (window.confirm("¿Estás seguro de eliminar esta categoría?")) {
       try {
         await axios.delete(
-          `http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php?id=${id}`
+          `https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Categoria/CategoriaController.php?id=${id}`
         );
         obtenerCategorias();
       } catch (error) {

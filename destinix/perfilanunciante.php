@@ -32,7 +32,7 @@ if ($method === "GET") {
     $data = $result->fetch_assoc();
 
     if (!empty($data['foto_perfil'])) {
-        $data['foto_perfil'] = "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/" . $data['foto_perfil'];
+        $data['foto_perfil'] = "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/" . $data['foto_perfil'];
     }
 
     echo json_encode($data);
@@ -137,8 +137,8 @@ if ($method === "POST") {
 
         echo json_encode([
             "success" => true,
-            "foto_perfil" => $foto_perfil ? "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$foto_perfil" : null,
-            "imagen_soporte" => $imagen_soporte ? "http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$imagen_soporte" : null
+            "foto_perfil" => $foto_perfil ? "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$foto_perfil" : null,
+            "imagen_soporte" => $imagen_soporte ? "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$imagen_soporte" : null
         ]);
     } catch (Exception $e) {
         $conexion->rollback();

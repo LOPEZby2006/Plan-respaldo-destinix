@@ -28,11 +28,11 @@ function enviarCorreoVerificacion($correoDestino, $token) {
         $mail->Body    = '
             <h2>¡Gracias por registrarte en Destinix!</h2>
             <p>Haz clic en el siguiente enlace para verificar tu correo:</p>
-            <a href="http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/verificar.php?token=' . $token . '">
+            <a href="https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/verificar.php?token=' . $token . '">
                 Verificar mi cuenta
             </a>
         ';
-        $mail->AltBody = 'Haz clic en este enlace para verificar: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/verificar.php?token=' . $token;
+        $mail->AltBody = 'Haz clic en este enlace para verificar: https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/verificar.php?token=' . $token;
 
         $mail->send();
         return true;
