@@ -15,3 +15,5 @@ if ($conexion->connect_error) {
     exit;
 }
 
+return $conexion;
+?>

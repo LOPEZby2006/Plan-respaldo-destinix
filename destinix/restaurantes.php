@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 header("Access-Control-Allow-Origin: https://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
 header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
@@ -15,7 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     exit();
 }
 
-include "conexion.php";
+$conexion = include "conexion.php"; // ⚠️ IMPORTANTE: DEBE retornar $conexion
+
+if (!$conexion) {
+    echo json_encode(["error" => "Error al conectar con la base de datos"]);
+    exit;
+}
 
 $method = $_SERVER["REQUEST_METHOD"];
 $inputData = json_decode(file_get_contents("php://input"), true);
@@ -26,9 +31,8 @@ if ($method === "GET") {
     $resultado = $conexion->query($query);
     $data = [];
 
-    if ($resultado->num_rows > 0) {
+    if ($resultado && $resultado->num_rows > 0) {
         while ($row = $resultado->fetch_assoc()) {
-            // Construir la URL completa para la imagen
             if (!empty($row["img"])) {
                 $row["img"] = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/imagenes/" . $row["img"];
             }
@@ -43,7 +47,8 @@ if ($method === "GET") {
 // 📌 2. POST - Crear nuevo restaurante con imagen
 if ($method === "POST") {
     if (!isset($_FILES["img"])) {
-        die(json_encode(["error" => "No se recibió ninguna imagen"]));
+        echo json_encode(["error" => "No se recibió ninguna imagen"]);
+        exit;
     }
 
     $uploadDir = "imagenes/";
@@ -57,21 +62,22 @@ if ($method === "POST") {
     $allowedTypes = ["jpg", "jpeg", "png", "gif"];
 
     if (!in_array($fileType, $allowedTypes)) {
-        die(json_encode(["error" => "Formato de imagen no permitido (jpg, jpeg, png, gif)"]));
+        echo json_encode(["error" => "Formato de imagen no permitido (jpg, jpeg, png, gif)"]);
+        exit;
     }
 
     $newFileName = uniqid() . "." . $fileType;
     $destPath = $uploadDir . $newFileName;
 
     if (!move_uploaded_file($fileTmpPath, $destPath)) {
-        die(json_encode(["error" => "Error al guardar la imagen"]));
+        echo json_encode(["error" => "Error al guardar la imagen"]);
+        exit;
     }
 
     $titulo = $_POST["titulo_restaurante"];
     $descripcion = $_POST["desc_restaurantes"];
     $estado = $_POST["estado_id_estado"];
     $empresa = $_POST["empresa_id_empresa"];
-    
 
     $query = "INSERT INTO restaurantes (titulo_restaurante, img, desc_restaurantes, estado_id_estado, empresa_id_empresa)
               VALUES ('$titulo', '$newFileName', '$descripcion', '$estado', '$empresa')";
@@ -130,5 +136,7 @@ if ($method === "DELETE") {
     exit;
 }
 
+// 🚫 Si el método no es válido
+echo json_encode(["error" => "Método no permitido"]);
 $conexion->close();
 ?>
