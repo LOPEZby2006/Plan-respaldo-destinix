@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import styles from "../styles/admin/comentario.module.css"
 
 const Comentarios = ({ idHoteles }) => {
     const [comentarios, setComentarios] = useState([]);
@@ -108,43 +109,48 @@ const Comentarios = ({ idHoteles }) => {
     };
 
     return (
-        <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4">Comentarios del hotel</h2>
+        <div className={styles.contenedor}>
+            <h2 className={styles.titulo}>Comentarios del hotel</h2>
 
-            <div className="flex mb-4 gap-2">
+            <div className={styles.formulario}>
                 <input
-                    type="text"
-                    className="border p-2 flex-1 rounded"
-                    placeholder="Escribe un comentario..."
-                    value={nuevoComentario}
-                    onChange={(e) => setNuevoComentario(e.target.value)}
+                type="text"
+                className={styles.input}
+                placeholder="Escribe un comentario..."
+                value={nuevoComentario}
+                onChange={(e) => setNuevoComentario(e.target.value)}
                 />
                 {idEditar ? (
-                    <button className="bg-yellow-500 text-white px-4 py-2 rounded" onClick={editarComentario}>
-                        Actualizar
-                    </button>
+                <button className={styles.botonActualizar} onClick={editarComentario}>
+                    Actualizar
+                </button>
                 ) : (
-                    <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={agregarComentario}>
-                        Comentar
-                    </button>
+                <button className={styles.botonComentar} onClick={agregarComentario}>
+                    Comentar
+                </button>
                 )}
             </div>
 
-            <ul className="space-y-3">
+            <ul className={styles.listaComentarios}>
                 {comentarios.map((comentario) => (
-                    <li key={comentario.id_comentario} className="border p-3 rounded shadow-sm flex justify-between items-start">
-                        <div>
-                            <p className="text-gray-800">{comentario.contenido}</p>
-                            <p className="text-xs text-gray-500">ID Persona: {comentario.persona_id_persona}</p>
-                        </div>
-                        <div className="space-x-2">
-                            <button className="text-blue-600" onClick={() => seleccionarParaEditar(comentario)}>Editar</button>
-                            <button className="text-red-600" onClick={() => eliminarComentario(comentario.id_comentario)}>Eliminar</button>
-                        </div>
-                    </li>
+                <li key={comentario.id_comentario} className={styles.comentario}>
+                    <div>
+                    <p className={styles.textoComentario}>{comentario.contenido}</p>
+                    <p className={styles.idPersona}>ID Persona: {comentario.persona_id_persona}</p>
+                    </div>
+                    <div className={styles.botones}>
+                    <button className={styles.botonEditar} onClick={() => seleccionarParaEditar(comentario)}>
+                        Editar
+                    </button>
+                    <button className={styles.botonEliminar} onClick={() => eliminarComentario(comentario.id_comentario)}>
+                        Eliminar
+                    </button>
+                    </div>
+                </li>
                 ))}
             </ul>
-        </div>
+            </div>
+
     );
 };
 

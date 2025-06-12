@@ -3,13 +3,16 @@ import React from "react";
 import SidebarAdmin from "./sidebaradmin";
 import { Outlet } from "react-router-dom";
 
+import styles from '../styles/admin/adminlayout.module.css';
+
 const AdminLayout = () => (
-    <div className="admin-layout">
+    <div className={styles.adminlayout}>
         <SidebarAdmin />
-        <div className="admin-content">
+        <div className={styles.admincontent}>
             <Outlet />
         </div>
     </div>
 );
+
 
 export default AdminLayout;

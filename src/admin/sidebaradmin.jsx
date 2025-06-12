@@ -1,7 +1,7 @@
 // src/admin/AdminSidebar.jsx
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import styles from "../styles/Sidebar.module.css";
+import styles from "../styles/admin/sidebaradmin.module.css";
 import { useAuth } from "../Authcontext";
 
 const LogoutButton = () => {
@@ -44,35 +44,36 @@ const AdminSidebar = () => {
         <nav className={styles.barralateral}>
             <div className={styles.sidebarContent}>
                 <ul className={styles.menuList}>
-                    <li className={styles.logo}>
-                        <NavLink to="/">
-                            <img
-                                src="/imagenes/LOGODES.png"
-                                alt="Logo Destinix"
-                                className={styles.logoImg}
-                            />
-                            <span className={styles.navitem}>Destinix</span>
-                        </NavLink>
-                    </li>
+                <li className={styles.logo}>
+                    <NavLink to="/">
+                    <img
+                        src="/imagenes/LOGODES.png"
+                        alt="Logo Destinix"
+                        className={styles.logoImg}
+                    />
+                    <span className={styles.navitem}>Destinix</span>
+                    </NavLink>
+                </li>
 
-                    {adminMenuItems.map(({ path, label, icon }, index) => (
-                        <li key={index}>
-                            <NavLink
-                                to={path}
-                                className={({ isActive }) => (isActive ? styles.active : "")}
-                            >
-                                <i className={`fas fa-${icon}`}></i>
-                                <span className={styles.navitem}>{label}</span>
-                            </NavLink>
-                        </li>
-                    ))}
+                {adminMenuItems.map(({ path, label, icon }, index) => (
+                    <li key={index}>
+                    <NavLink
+                        to={path}
+                        className={({ isActive }) => (isActive ? styles.active : "")}
+                    >
+                        <i className={`fas fa-${icon}`}></i>
+                        <span className={styles.navitem}>{label}</span>
+                    </NavLink>
+                    </li>
+                ))}
                 </ul>
             </div>
 
             <div className={styles.logoutSection}>
                 <LogoutButton />
             </div>
-        </nav>
+            </nav>
+
     );
 };
 

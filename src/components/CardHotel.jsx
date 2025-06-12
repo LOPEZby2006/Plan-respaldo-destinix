@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Cards.css';
+import styles from '../styles/Cards.module.css';
 import { checkSession, addComentario, getComentariosByHotel } from '../services/api';
 import Swal from 'sweetalert2';
 
@@ -86,15 +86,15 @@ const CardHotel = ({ hotel }) => {
 
     return (
         <>
-            <div className="card-container">
-                <div className="card">
+            <div className={styles.cardcontainer}>
+                <div className={styles.card}>
                     {hotel.img && (
-                        <img className="card-img" src={hotel.img} alt={hotel.titulo_hotel} />
+                        <img className={styles.cardimg} src={hotel.img} alt={hotel.titulo_hotel} />
                     )}
-                    <div className="card-body">
-                        <h5 className="card-title">{hotel.titulo_hotel || "Cargando..."}</h5>
-                        <p className="card-description">{hotel.descripcion_hotel}</p>
-                        <button className="read-more-button" onClick={abrirModal}>
+                    <div className={styles.cardbody}>
+                        <h5 className={styles.cardtitle}>{hotel.titulo_hotel || "Cargando..."}</h5>
+                        <p className={styles.carddescription}>{hotel.descripcion_hotel}</p>
+                        <button className={styles.readmorebutton} onClick={abrirModal}>
                             Leer más
                         </button>
                     </div>
@@ -102,18 +102,18 @@ const CardHotel = ({ hotel }) => {
             </div>
 
             {showModal && (
-                <div className="modal-overlay" onClick={cerrarModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2 className="modal-title">{hotel.titulo_hotel}</h2>
+                <div className={styles.modaloverlay} onClick={cerrarModal}>
+                    <div className={styles.modalcontent} onClick={(e) => e.stopPropagation()}>
+                        <h2 className={styles.modaltitle}>{hotel.titulo_hotel}</h2>
                         {hotel.img && (
-                            <img className="card-img" src={hotel.img} alt={hotel.titulo_hotel} />
+                            <img className={styles.cardimg} src={hotel.img} alt={hotel.titulo_hotel} />
                         )}
-                        <p className="modal-description">{hotel.descripcion_hotel}</p>
-                        <h3 className="modal-subtitle">Comentarios:</h3>
+                        <p className={styles.modaldescription}>{hotel.descripcion_hotel}</p>
+                        <h3 className={styles.modalsubtitle}>Comentarios:</h3>
                         {comentarios.length > 0 ? (
-                            <ul className="comment-list">
+                            <ul className={styles.commentlist}>
                                 {comentarios.map((coment, index) => (
-                                    <li key={index} className="comment-item">
+                                    <li key={index} className={styles.commentitem}>
                                         <strong>Calificación:</strong> {coment.id_calificacion} ★<br />
                                         <span>{coment.contenido}</span>
                                     </li>
@@ -123,7 +123,7 @@ const CardHotel = ({ hotel }) => {
                             <p>No hay comentarios aún.</p>
                         )}
 
-                        <form onSubmit={enviarComentario} className="comment-form">
+                        <form onSubmit={enviarComentario} className={styles.commentform}>
                             <textarea
                                 value={comentario}
                                 onChange={(e) => setComentario(e.target.value)}
@@ -131,7 +131,7 @@ const CardHotel = ({ hotel }) => {
                                 required
                             ></textarea>
 
-                            <div className="star-rating">
+                            <div className={styles.startrating}>
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <span
                                         key={star}
@@ -143,12 +143,12 @@ const CardHotel = ({ hotel }) => {
                                 ))}
                             </div>
 
-                            <button className="read-more-button" type="submit">
+                            <button className={styles.readmorebutton} type="submit">
                                 Enviar Comentario
                             </button>
                         </form>
 
-                        <button className="close-button" onClick={cerrarModal}>
+                        <button className={styles.closebutton} onClick={cerrarModal}>
                             Cerrar
                         </button>
                     </div>

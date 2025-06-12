@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "../styles/admin/soporte.module.css"
 
 const SoportesPago = () => {
     const [soportes, setSoportes] = useState([]);
@@ -79,70 +80,81 @@ const SoportesPago = () => {
     };
 
     return (
-        <div className="container">
-            <h2>Soportes de Pago</h2>
-            <form onSubmit={handleInsertar}>
-                <input type="file" onChange={(e) => setImagen(e.target.files[0])} />
+       <div className={styles.container}>
+            <h2 className={styles.titulo}>Soportes de Pago</h2>
+
+            <form onSubmit={handleInsertar} className={styles.formulario}>
                 <input
-                    type="number"
-                    placeholder="ID Restaurante"
-                    value={restaurante}
-                    onChange={(e) => setRestaurante(e.target.value)}
+                type="file"
+                onChange={(e) => setImagen(e.target.files[0])}
+                className={styles.inputFile}
                 />
                 <input
-                    type="number"
-                    placeholder="ID Hotel"
-                    value={hotel}
-                    onChange={(e) => setHotel(e.target.value)}
+                type="number"
+                placeholder="ID Restaurante"
+                value={restaurante}
+                onChange={(e) => setRestaurante(e.target.value)}
+                className={styles.input}
                 />
                 <input
-                    type="number"
-                    placeholder="ID Sitio Turístico"
-                    value={sitio}
-                    onChange={(e) => setSitio(e.target.value)}
+                type="number"
+                placeholder="ID Hotel"
+                value={hotel}
+                onChange={(e) => setHotel(e.target.value)}
+                className={styles.input}
                 />
-                <button type="submit">Guardar</button>
+                <input
+                type="number"
+                placeholder="ID Sitio Turístico"
+                value={sitio}
+                onChange={(e) => setSitio(e.target.value)}
+                className={styles.input}
+                />
+                <button type="submit" className={styles.botonGuardar}>Guardar</button>
             </form>
 
-            <table border="1" style={{ marginTop: "20px", width: "100%" }}>
+            <div className={styles.tablaContainer}>
+                <table className={styles.tabla}>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Imagen</th>
-                        <th>Empresa</th>
-                        <th>Persona</th>
-                        <th>Restaurante</th>
-                        <th>Hotel</th>
-                        <th>Sitio</th>
-                        <th>Estado</th>
-                        <th>Acción</th>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Empresa</th>
+                    <th>Persona</th>
+                    <th>Restaurante</th>
+                    <th>Hotel</th>
+                    <th>Sitio</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
                     {soportes.map((s) => (
-                        <tr key={s.id_soporte}>
-                            <td>{s.id_soporte}</td>
-                            <td>
-                                <img
-                                    src={`http://localhost/destinix/imagenes/${s.imagen_soporte}`}
-                                    alt="soporte"
-                                    width="100"
-                                />
-                            </td>
-                            <td>{s.id_empresa}</td>
-                            <td>{s.id_persona}</td>
-                            <td>{s.restaurante_id}</td>
-                            <td>{s.hotel_id}</td>
-                            <td>{s.sitio_id}</td>
-                            <td>{s.estado_id}</td>
-                            <td>
-                                <button onClick={() => handleEliminar(s.id_soporte)}>Eliminar</button>
-                            </td>
-                        </tr>
+                    <tr key={s.id_soporte}>
+                        <td>{s.id_soporte}</td>
+                        <td>
+                        <img
+                            src={`http://localhost/destinix/imagenes/${s.imagen_soporte}`}
+                            alt="soporte"
+                            className={styles.imagenSoporte}
+                        />
+                        </td>
+                        <td>{s.id_empresa}</td>
+                        <td>{s.id_persona}</td>
+                        <td>{s.restaurante_id}</td>
+                        <td>{s.hotel_id}</td>
+                        <td>{s.sitio_id}</td>
+                        <td>{s.estado_id}</td>
+                        <td>
+                        <button className={styles.botonEliminar} onClick={() => handleEliminar(s.id_soporte)}>Eliminar</button>
+                        </td>
+                    </tr>
                     ))}
                 </tbody>
-            </table>
-        </div>
+                </table>
+            </div>
+            </div>
+
     );
 };
 

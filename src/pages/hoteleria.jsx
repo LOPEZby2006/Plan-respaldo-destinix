@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getHoteles, addComentario } from "../services/api";
 import CardHotel from '../components/CardHotel';
 import Swal from 'sweetalert2';
+import styles from "../styles/lugares.module.css";
 
 const Hoteles = () => {
     const [hoteles, setHoteles] = useState([]);
@@ -67,7 +68,7 @@ const Hoteles = () => {
     };
 
     return (
-        <div className="sitio-turistico-container">
+        <div className={styles.contenedor}>
             {hoteles.length > 0 ? (
                 hoteles.map(hotel => (
                     <CardHotel

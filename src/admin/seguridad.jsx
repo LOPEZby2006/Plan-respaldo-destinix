@@ -70,59 +70,60 @@ const Seguridad = () => {
 
     return (
         <div className={styles.contenedor}>
-            <h2 className={styles.titulo}>Gestión de Seguridad</h2>
+                <h2 className={styles.titulo}>Gestión de Seguridad</h2>
 
-            <form onSubmit={handleSubmit} className={styles.formulario}>
-                <input
+                <form onSubmit={handleSubmit} className={styles.formulario}>
+                    <input
                     type="email"
                     value={email_usu}
                     onChange={(e) => setEmailUsu(e.target.value)}
                     className={styles.input}
                     placeholder="Email"
-                />
-                <input
+                    />
+                    <input
                     type="text"
                     value={contra_usu}
                     onChange={(e) => setContraUsu(e.target.value)}
                     className={styles.input}
                     placeholder="Contraseña"
-                />
-                <input
+                    />
+                    <input
                     type="text"
                     value={token_reset}
                     onChange={(e) => setTokenReset(e.target.value)}
                     className={styles.input}
                     placeholder="Token Reset"
-                />
-                <input
+                    />
+                    <input
                     type="text"
                     value={expira_reset}
                     onChange={(e) => setExpiraReset(e.target.value)}
                     className={styles.input}
                     placeholder="Expira Reset"
-                />
-                <input
+                    />
+                    <input
                     type="text"
                     value={verificado}
                     onChange={(e) => setVerificado(e.target.value)}
                     className={styles.input}
                     placeholder="Verificado"
-                />
-                <input
+                    />
+                    <input
                     type="text"
                     value={token_verificacion}
                     onChange={(e) => setTokenVerificacion(e.target.value)}
                     className={styles.input}
                     placeholder="Token Verificación"
-                />
-                <button type="submit" className={styles.botonEnviar}>
+                    />
+                    <button type="submit" className={styles.botonEnviar}>
                     {editando ? "Actualizar" : "Agregar"}
-                </button>
-            </form>
+                    </button>
+                </form>
 
-            <table className={styles.tabla}>
-                <thead>
-                    <tr className={styles.encabezado}>
+                <div className={styles.tablaResponsive}>
+                    <table className={styles.tabla}>
+                    <thead>
+                        <tr className={styles.encabezado}>
                         <th className={styles.celda}>ID</th>
                         <th className={styles.celda}>Email</th>
                         <th className={styles.celda}>Contraseña</th>
@@ -131,10 +132,10 @@ const Seguridad = () => {
                         <th className={styles.celda}>Verificado</th>
                         <th className={styles.celda}>Token Verificación</th>
                         <th className={styles.celda}>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {registros.map((registro) => (
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {registros.map((registro) => (
                         <tr key={registro.id_seguridad}>
                             <td className={styles.celda}>{registro.id_seguridad}</td>
                             <td className={styles.celda}>{registro.email_usu}</td>
@@ -144,24 +145,26 @@ const Seguridad = () => {
                             <td className={styles.celda}>{registro.verificado}</td>
                             <td className={styles.celda}>{registro.token_verificacion}</td>
                             <td className={styles.celda}>
-                                <button
-                                    onClick={() => handleEditar(registro)}
-                                    className={styles.botonEditar}
-                                >
-                                    Editar
-                                </button>
-                                <button
-                                    onClick={() => handleEliminar(registro.id_seguridad)}
-                                    className={styles.botonEliminar}
-                                >
-                                    Eliminar
-                                </button>
+                            <button
+                                onClick={() => handleEditar(registro)}
+                                className={styles.botonEditar}
+                            >
+                                Editar
+                            </button>
+                            <button
+                                onClick={() => handleEliminar(registro.id_seguridad)}
+                                className={styles.botonEliminar}
+                            >
+                                Eliminar
+                            </button>
                             </td>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                        ))}
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+
     );
 };
 
