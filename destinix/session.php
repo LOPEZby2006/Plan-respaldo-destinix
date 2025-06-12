@@ -1,9 +1,16 @@
 <?php
-<?php
+// Permitir solicitudes desde tu frontend en Azure Static Web Apps
 header("Access-Control-Allow-Origin: https://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
+header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Access-Control-Allow-Credentials: true");
+
+// Manejo de solicitud OPTIONS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 session_start();
 
 if (isset($_SESSION['id_persona'])) {
