@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     exit;
 }
 
-$conexion = include "conexion.php";
+include "conexion.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 $inputData = json_decode(file_get_contents("php://input"), true);
