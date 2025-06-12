@@ -24,7 +24,7 @@ if ($method === "GET") {
         while ($row = $resultado->fetch_assoc()) {
             // Construir la URL completa para la imagen
             if (!empty($row["img"])) {
-                $row["img"] = "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/" . $row["img"];
+                $row["img"] = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/imagenes/" . $row["img"];
             }
             $data[] = $row;
         }

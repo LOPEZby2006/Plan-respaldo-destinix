@@ -20,7 +20,7 @@ const SeguridadForm = () => {
 
   const fetchSeguridad = async () => {
     try {
-      const res = await axios.get("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Seguridad/SeguridadController.php");
+      const res = await axios.get("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Seguridad/SeguridadController.php");
       setDatos(res.data);
     } catch (error) {
       console.error("Error al cargar datos de seguridad:", error);
@@ -41,13 +41,13 @@ const SeguridadForm = () => {
     e.preventDefault();
     try {
       if (editando) {
-        await axios.post("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Seguridad/SeguridadController.php?editar=1", {
+        await axios.post("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Seguridad/SeguridadController.php?editar=1", {
           ...form,
           id_seguridad
         });
         alert("Registro actualizado");
       } else {
-        await axios.post("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Seguridad/SeguridadController.php", form);
+        await axios.post("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Seguridad/SeguridadController.php", form);
         alert("Registro creado");
       }
 
@@ -71,7 +71,7 @@ const SeguridadForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Deseas eliminar este registro?")) {
       try {
-        await axios.delete(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Seguridad/SeguridadController.php?id=${id}`);
+        await axios.delete(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Seguridad/SeguridadController.php?id=${id}`);
         fetchSeguridad();
       } catch (error) {
         console.error("Error al eliminar:", error);

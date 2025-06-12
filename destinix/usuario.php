@@ -23,7 +23,7 @@ if (isset($_SESSION['id_persona'])) {
             $data = $resultado->fetch_assoc();
 
             if (!empty($data["foto_perfil"])) {
-                $data["foto_perfil"] = "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/" . $data["foto_perfil"];
+                $data["foto_perfil"] = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/imagenes/" . $data["foto_perfil"];
             }
         }
 
@@ -57,7 +57,7 @@ if (isset($_SESSION['id_persona'])) {
         }
 
         if ($conexion->query($query) === TRUE) {
-            echo json_encode(["success" => true, "foto_perfil" => $foto_perfil ? "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/$fileName" : null]);
+            echo json_encode(["success" => true, "foto_perfil" => $foto_perfil ? "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/imagenes/$fileName" : null]);
         } else {
             echo json_encode(["error" => "Error actualizando datos: " . $conexion->error]);
         }

@@ -25,7 +25,7 @@ const ItinerarioForm = () => {
 
   const fetchItinerarios = async () => {
     try {
-      const res = await axios.get("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Itinerario/ItinerarioController.php");
+      const res = await axios.get("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Itinerario/ItinerarioController.php");
       setItinerarios(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error("Error al cargar itinerarios:", error);
@@ -63,10 +63,10 @@ const ItinerarioForm = () => {
     try {
       if (editando) {
         formData.append("id_itinerario", idItinerario);
-        await axios.post("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Itinerario/ItinerarioController.php?editar=1", formData);
+        await axios.post("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Itinerario/ItinerarioController.php?editar=1", formData);
         alert("Itinerario actualizado correctamente");
       } else {
-        await axios.post("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Itinerario/ItinerarioController.php", formData);
+        await axios.post("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Itinerario/ItinerarioController.php", formData);
         alert("Itinerario registrado exitosamente");
       }
 
@@ -104,7 +104,7 @@ const ItinerarioForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Deseas eliminar este itinerario?")) {
       try {
-        await axios.delete(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Itinerario/ItinerarioController.php?id=${id}`);
+        await axios.delete(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Itinerario/ItinerarioController.php?id=${id}`);
         fetchItinerarios();
       } catch (error) {
         console.error("Error al eliminar:", error);

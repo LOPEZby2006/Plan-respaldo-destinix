@@ -9,7 +9,7 @@ const Comentarios = ({ idHoteles }) => {
 
     // Cargar comentarios al inicio
     useEffect(() => {
-        fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentariosadmin.php?id_hoteles=${idHoteles}`, {
+        fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentariosadmin.php?id_hoteles=${idHoteles}`, {
             credentials: 'include',
         })
             .then(res => res.json())
@@ -21,7 +21,7 @@ const Comentarios = ({ idHoteles }) => {
     const agregarComentario = () => {
         if (!nuevoComentario.trim()) return;
 
-        fetch('https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentariosadmin.php', {
+        fetch('https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentariosadmin.php', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -37,7 +37,7 @@ const Comentarios = ({ idHoteles }) => {
                     setNuevoComentario('');
                     Swal.fire('¡Comentario agregado!', '', 'success');
                     // Recargar comentarios
-                    return fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentariosadmin.php?id_hoteles=${idHoteles}`, {
+                    return fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentariosadmin.php?id_hoteles=${idHoteles}`, {
                         credentials: 'include',
                     });
                 } else {
@@ -57,7 +57,7 @@ const Comentarios = ({ idHoteles }) => {
             confirmButtonText: 'Sí, eliminar'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch('https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentariosadmin.php', {
+                fetch('https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentariosadmin.php', {
                     method: 'DELETE',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -77,7 +77,7 @@ const Comentarios = ({ idHoteles }) => {
     };
 
     const editarComentario = () => {
-        fetch('https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentariosadmin.php', {
+        fetch('https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentariosadmin.php', {
             method: 'PUT',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -92,7 +92,7 @@ const Comentarios = ({ idHoteles }) => {
                     Swal.fire('Comentario actualizado', '', 'success');
                     setNuevoComentario('');
                     setIdEditar(null);
-                    return fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentariosadmin.php?id_hoteles=${idHoteles}`, {
+                    return fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentariosadmin.php?id_hoteles=${idHoteles}`, {
                         credentials: 'include',
                     });
                 } else {

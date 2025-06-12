@@ -1,5 +1,5 @@
 export async function registerUser(data) {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/register.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/register.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export async function registerUser(data) {
 
 export const loginUser = async (email, contraseña) => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/login.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/login.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export const loginUser = async (email, contraseña) => {
 
 export const Dashboard = async () => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/dashboard.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/dashboard.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export const Dashboard = async () => {
     }
 };
 
-const API_URL = "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/itinerario.php";
+const API_URL = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/itinerario.php";
 
 export const getItinerario = async () => {
     const response = await fetch(API_URL, {
@@ -69,7 +69,7 @@ export const getItinerario = async () => {
 };
 
 export const addEvento = async (evento) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/itinerario.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/itinerario.php", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -98,7 +98,7 @@ export const deleteEvento = async (id) => {
 
 export const logoutUser = async () => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/logout.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/logout.php", {
             credentials: "include",
         });
         return await response.json();
@@ -110,7 +110,7 @@ export const logoutUser = async () => {
 
 export const addComentario = async (comentarioData) => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentarios.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentarios.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -129,7 +129,7 @@ export const addComentario = async (comentarioData) => {
 
 export async function getSitioTuristico() {
     try {
-        const response = await fetch('https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/sitios.php', {
+        const response = await fetch('https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/sitios.php', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -152,7 +152,7 @@ export async function guardarComentario(data) {
             id_calificacion: data.id_calificacion
         };
 
-        const response = await fetch('https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentarios.php', {
+        const response = await fetch('https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentarios.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -170,7 +170,7 @@ export async function guardarComentario(data) {
 
 export const getComentariosBySitio = async (id_sitio) => {
     try {
-        const response = await fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentarios.php?id_sitio=${id_sitio}`, {
+        const response = await fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentarios.php?id_sitio=${id_sitio}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -187,7 +187,7 @@ export const getComentariosBySitio = async (id_sitio) => {
 
 export const checkSession = async () => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/session.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/session.php", {
             method: "GET",
             credentials: "include",  // Muy importante para enviar la cookie de sesión
         });
@@ -238,7 +238,7 @@ export const guardarComentarioRestaurante = async (data) => {
 
 export const getRestaurantes = async () => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/Restaurantes.php");
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/Restaurantes.php");
         const data = await response.json();
         return data;
     } catch (error) {
@@ -249,7 +249,7 @@ export const getRestaurantes = async () => {
 
 export const getHoteles = async () => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/hoteles.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/hoteles.php", {
             method: "GET",
             credentials: "include",
         });
@@ -263,7 +263,7 @@ export const getHoteles = async () => {
 
 export const getSitiosPorTipo = async (tipo) => {
     try {
-        const response = await fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/itinerario.php?tipo=${tipo}`);
+        const response = await fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/itinerario.php?tipo=${tipo}`);
         if (!response.ok) {
             throw new Error("Error al obtener sitios por tipo");
         }
@@ -275,7 +275,7 @@ export const getSitiosPorTipo = async (tipo) => {
 };
 
 export const editEvento = async (evento) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/itinerario.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/itinerario.php", {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -295,7 +295,7 @@ export const editEvento = async (evento) => {
 };
 
 export const editUser = async (formData) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/usuario.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/usuario.php", {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -313,7 +313,7 @@ export const editUser = async (formData) => {
 
 export const fetchUsuario = async () => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/usuario.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/usuario.php", {
             method: "GET",
             credentials: "include", // 🔥 Para enviar las cookies de sesión
         });
@@ -327,7 +327,7 @@ export const fetchUsuario = async () => {
 
 export const getPerfilAnunciante = async () => {
     try {
-        const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/perfilanunciante.php", {
+        const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/perfilanunciante.php", {
             method: "GET",
             credentials: "include",
             headers: {
@@ -345,7 +345,7 @@ export const getPerfilAnunciante = async () => {
 
 
 export const getRolUsuario = async () => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/usuario.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/usuario.php", {
         credentials: "include",
     });
     const data = await response.json();
@@ -353,7 +353,7 @@ export const getRolUsuario = async () => {
 };
 
 export const editPerfilAnunciante = async (formData) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/perfilanunciante.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/perfilanunciante.php", {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -364,7 +364,7 @@ export const editPerfilAnunciante = async (formData) => {
 };
 
 export const registrarHotel = async (formData) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/registrarhotel.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/registrarhotel.php", {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -384,7 +384,7 @@ export const registrarHotel = async (formData) => {
 
 export const getComentariosByHotel = async (id_hoteles) => {
     try {
-        const response = await fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentarios.php?id_hoteles=${id_hoteles}`, {
+        const response = await fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentarios.php?id_hoteles=${id_hoteles}`, {
             method: 'GET',
             credentials: 'include',
         });
@@ -397,7 +397,7 @@ export const getComentariosByHotel = async (id_hoteles) => {
 
 export const getComentariosByrestaurante = async (id_hoteles) => {
     try {
-        const response = await fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/comentarios.php?id_hoteles=${id_hoteles}`, {
+        const response = await fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/comentarios.php?id_hoteles=${id_hoteles}`, {
             method: 'GET',
             credentials: 'include',
         });
@@ -408,7 +408,7 @@ export const getComentariosByrestaurante = async (id_hoteles) => {
     }
 };
 
-const CALIFICACION_URL = "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/calificacion.php";
+const CALIFICACION_URL = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/calificacion.php";
 
 export const getCalificaciones = async () => {
     const response = await fetch(CALIFICACION_URL);
@@ -445,14 +445,14 @@ export const deleteCalificacion = async (id) => {
 };
 
 export const VerificarUsu = async (id) => {
-    const response = await fetch(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/verificar.php`, {
+    const response = await fetch(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/verificar.php`, {
         method: "PUT",
     });
     return await response.json();
 };
 
 export const sendResetEmail = async (email) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/SendMail.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/SendMail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -463,7 +463,7 @@ export const sendResetEmail = async (email) => {
 };
 
 export const resetPassword = async (token, newPassword) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/reset.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/reset.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

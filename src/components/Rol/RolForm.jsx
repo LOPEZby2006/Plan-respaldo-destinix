@@ -19,7 +19,7 @@ const RolForm = () => {
 
   const fetchRoles = async () => {
     try {
-      const res = await axios.get("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Rol/RolController.php");
+      const res = await axios.get("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Rol/RolController.php");
       setRoles(res.data);
     } catch (error) {
       console.error("Error al cargar roles:", error);
@@ -41,13 +41,13 @@ const RolForm = () => {
 
     try {
       if (editando) {
-        await axios.post("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Rol/RolController.php?editar=1", {
+        await axios.post("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Rol/RolController.php?editar=1", {
           ...form,
           idRol
         });
         alert("Rol actualizado");
       } else {
-        await axios.post("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Rol/RolController.php", form);
+        await axios.post("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Rol/RolController.php", form);
         alert("Rol registrado");
       }
 
@@ -71,7 +71,7 @@ const RolForm = () => {
   const handleEliminar = async (id) => {
     if (window.confirm("¿Deseas eliminar este rol?")) {
       try {
-        await axios.delete(`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/api/Rol/RolController.php?id=${id}`);
+        await axios.delete(`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/api/Rol/RolController.php?id=${id}`);
         fetchRoles();
       } catch (error) {
         console.error("Error al eliminar el rol:", error);

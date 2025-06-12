@@ -122,7 +122,7 @@ try {
 
     // Generar token y guardar
     $token = bin2hex(random_bytes(16));
-    $url_verificacion = "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/verificar.php?token=$token";
+    $url_verificacion = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/verificar.php?token=$token";
 
     $stmt = $conexion->prepare("UPDATE seguridad SET token_verificacion = ? WHERE id_seguridad = ?");
     $stmt->bind_param("si", $token, $id_seguridad);

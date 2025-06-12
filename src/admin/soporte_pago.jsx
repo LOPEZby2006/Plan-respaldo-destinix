@@ -10,7 +10,7 @@ const SoportesPago = () => {
 
     const obtenerSoportes = async () => {
         try {
-            const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/soportes_pago.php");
+            const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/soportes_pago.php");
             const data = await response.json();
             setSoportes(data);
         } catch (error) {
@@ -38,7 +38,7 @@ const SoportesPago = () => {
         formData.append("accion", "insertar");
 
         try {
-            const res = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/soportes_pago.php", {
+            const res = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/soportes_pago.php", {
                 method: "POST",
                 body: formData,
             });
@@ -62,7 +62,7 @@ const SoportesPago = () => {
         if (!window.confirm("¿Seguro que deseas eliminar este soporte?")) return;
 
         try {
-            const res = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/soportes_pago.php", {
+            const res = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/soportes_pago.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ accion: "eliminar", id_soporte }),
@@ -134,7 +134,7 @@ const SoportesPago = () => {
                         <td>{s.id_soporte}</td>
                         <td>
                         <img
-                            src={`https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/imagenes/${s.imagen_soporte}`}
+                            src={`https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/imagenes/${s.imagen_soporte}`}
                             alt="soporte"
                             className={styles.imagenSoporte}
                         />
