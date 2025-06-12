@@ -1,7 +1,10 @@
 .contenedor {
-    padding: 1rem;
-    background-color: #f9f9f9;
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #ffffff;
     border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .titulo {
@@ -28,7 +31,7 @@
 
 .boton {
     grid-column: span 2;
-    background-color: #2563eb;
+    background-color: #1690a3;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 8px;
@@ -38,7 +41,7 @@
 }
 
 .boton:hover {
-    background-color: #1d4ed8;
+    background-color: #152c80;
 }
 
 .tabla {
