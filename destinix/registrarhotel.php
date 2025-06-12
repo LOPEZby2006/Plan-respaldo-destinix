@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 }
 
 // Conexión
-$conexion = include "conexion.php";
+include "conexion.php";
 
 // Verifica sesión
 if (!isset($_SESSION['id_persona'])) {
