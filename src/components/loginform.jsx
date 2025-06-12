@@ -1,6 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // ✅ IMPORTANTE: Agrega Link
 import { useAuth } from "../Authcontext";
 import styles from "../styles/login.module.css"
 
@@ -81,8 +81,9 @@ const LoginForm = () => {
                 <input type="password" name="password" placeholder="Contraseña" required />
             </div>
 
-             <a href="/resetpassword">¿Olvidaste tu contraseña?</a>
-            <a href="/loginempresa">Soy una empresa</a>
+            {/* ✅ Reemplazamos <a> por <Link> */}
+            <Link to="/resetpassword">¿Olvidaste tu contraseña?</Link>
+            <Link to="/loginempresa">Soy una empresa</Link>
 
             <button className={styles.button}>Iniciar Sesión</button>
         </form>
