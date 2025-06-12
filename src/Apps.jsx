@@ -10,7 +10,7 @@ import ProtectedRoute from "./components/Protectedroute";
 import Perfilusu from "./pages/perfilusu";
 import PerfilAnunciante from "./pages/perfilanun"
 
-import styles from"../src/styles/Apps.css";
+import styles from"../src/styles/Apps.module.css";
 
 const Layout = ({ children }) => (
     <div className={styles.appcontainer}>
