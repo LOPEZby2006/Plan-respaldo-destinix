@@ -1,9 +1,9 @@
-.app-container {
+.appcontainer {
     display: flex;
     height: 100vh;
 }
 
-.barra-lateral {
+.barralateral {
     width: 250px; /* Ajusta según prefieras */
     height: 100%;
     position: fixed;
