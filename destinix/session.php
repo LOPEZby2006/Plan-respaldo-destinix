@@ -4,9 +4,10 @@ header("Access-Control-Allow-Origin: https://ambitious-forest-0ecbd371e.6.azures
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Content-Type: application/json");
 
-// Manejo de solicitud OPTIONS
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+// Manejo de preflight request
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(200);
     exit();
 }
