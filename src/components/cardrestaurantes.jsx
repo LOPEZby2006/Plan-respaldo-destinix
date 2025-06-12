@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/Cards.css';
+import styles from '../styles/Cards.module.css';
 import { checkSession, addComentario, getComentariosByrestaurante } from '../services/api';
 import Swal from 'sweetalert2';
 
@@ -81,15 +81,15 @@ const CardRestaurante = ({ restaurante, comentarios = [], setComentarios }) => {
 
     return (
         <>
-            <div className="card-container">
-                <div className="card">
+            <div className={styles.cardcontainer}>
+                <div className={styles.card}>
                     {restaurante.img && (
-                        <img className="card-img" src={restaurante.img} alt={restaurante.titulo_restaurante} />
+                        <img className={styles.cardimg} src={restaurante.img} alt={restaurante.titulo_restaurante} />
                     )}
-                    <div className="card-body">
-                        <h5 className="card-title">{restaurante.titulo_restaurante || "Cargando..."}</h5>
-                        <p className="card-description">{restaurante.desc_restaurantes}</p>
-                        <button className="read-more-button" onClick={abrirModal}>
+                    <div className={styles.cardbody}>
+                        <h5 className={styles.cardtitle}>{restaurante.titulo_restaurante || "Cargando..."}</h5>
+                        <p className={styles.carddescription}>{restaurante.desc_restaurantes}</p>
+                        <button className={styles.readmorebutton} onClick={abrirModal}>
                             Leer más
                         </button>
                     </div>
@@ -97,18 +97,18 @@ const CardRestaurante = ({ restaurante, comentarios = [], setComentarios }) => {
             </div>
 
             {showModal && (
-                <div className="modal-overlay" onClick={() => setShowModal(false)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2 className="modal-title">{restaurante.titulo_restaurante}</h2>
+                <div className={styles.modaloverlay} onClick={() => setShowModal(false)}>
+                    <div className={styles.modalcontent} onClick={(e) => e.stopPropagation()}>
+                        <h2 className={styles.modaltitle}>{restaurante.titulo_restaurante}</h2>
                         {restaurante.img && (
-                            <img className="card-img" src={restaurante.img} alt={restaurante.titulo_restaurante} />
+                            <img className={styles.cardimg} src={restaurante.img} alt={restaurante.titulo_restaurante} />
                         )}
-                        <p className="modal-description">{restaurante.desc_restaurantes}</p>
-                        <h3 className="modal-subtitle">Comentarios:</h3>
+                        <p className={styles.modaldescription}>{restaurante.desc_restaurantes}</p>
+                        <h3 className={styles.modalsubtitle}>Comentarios:</h3>
                         {comentarios.length > 0 ? (
-                            <ul className="comment-list">
+                            <ul className={styles.commentlist}>
                                 {comentarios.map((coment, index) => (
-                                    <li key={index} className="comment-item">
+                                    <li key={index} className={styles.commentitem}>
                                         <strong>Calificación:</strong> {coment.calificacion} ★<br />
                                         <span>{coment.comentario}</span>
                                     </li>
@@ -118,7 +118,7 @@ const CardRestaurante = ({ restaurante, comentarios = [], setComentarios }) => {
                             <p>No hay comentarios aún.</p>
                         )}
 
-                        <form onSubmit={enviarComentario} className="comment-form">
+                        <form onSubmit={enviarComentario} className={styles.commentform}>
                             <textarea
                                 value={comentario}
                                 onChange={(e) => setComentario(e.target.value)}
@@ -126,7 +126,7 @@ const CardRestaurante = ({ restaurante, comentarios = [], setComentarios }) => {
                                 required
                             ></textarea>
 
-                            <div className="star-rating">
+                            <div className={styles.startrating}>
                                 {[1, 2, 3, 4, 5].map((star) => (
                                     <span
                                         key={star}
@@ -138,12 +138,12 @@ const CardRestaurante = ({ restaurante, comentarios = [], setComentarios }) => {
                                 ))}
                             </div>
 
-                            <button className="read-more-button" type="submit">
+                            <button className={styles.readmorebutton} type="submit">
                                 Enviar Comentario
                             </button>
                         </form>
 
-                        <button className="close-button" onClick={() => setShowModal(false)}>
+                        <button className={styles.closebutton} onClick={() => setShowModal(false)}>
                             Cerrar
                         </button>
                     </div>
