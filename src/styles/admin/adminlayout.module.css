@@ -1,0 +1,25 @@
+.adminlayout {
+  display: flex;
+  height: 100vh;
+  background-color: #f3f4f6; /* gris claro */
+  overflow: hidden;
+}
+
+.admincontent {
+  flex-grow: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-left: 1px solid #e5e7eb;
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Opcional para hacer scroll bonito */
+.admincontent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admincontent::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}

@@ -1,0 +1,90 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.titulo {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 32px;
+  justify-content: center;
+}
+
+.input,
+.inputFile {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  flex: 1 1 180px;
+}
+
+.botonGuardar {
+  background-color: #1690a3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.botonGuardar:hover {
+  background-color: #152c80;
+}
+
+.tablaContainer {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 14px;
+}
+
+.tabla thead {
+  background-color: #f3f4f6;
+}
+
+.tabla th,
+.tabla td {
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.imagenSoporte {
+  width: 80px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.botonEliminar {
+  background-color: transparent;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.botonEliminar:hover {
+  background-color: #dc2626;
+  color: white;
+}
