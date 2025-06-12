@@ -3,30 +3,30 @@ import styles from "../styles/login.module.css";
 import Swal from "sweetalert2";
 import { registerUser } from "../services/api"; // Importa la función desde tu archivo API
 import {
-  IoLogoInstagram,
-  IoLogoFacebook,
-  IoLogoTwitter,
-  IoLogoTiktok,
-  IoPersonCircleOutline,
-  IoCallOutline,
-  IoMailOutline,
-  IoIdCardOutline,
-  IoMapOutline,
-  IoMaleFemaleOutline,
-  IoCalendarNumberOutline,
-  IoLockClosedOutline,
+    IoLogoInstagram,
+    IoLogoFacebook,
+    IoLogoTwitter,
+    IoLogoTiktok,
+    IoPersonCircleOutline,
+    IoCallOutline,
+    IoMailOutline,
+    IoIdCardOutline,
+    IoMapOutline,
+    IoMaleFemaleOutline,
+    IoCalendarNumberOutline,
+    IoLockClosedOutline,
 } from 'react-icons/io5';
- 
+
 
 function RedesSociales() {
-  return (
-    <div>
-      <IoLogoInstagram />
-      <IoLogoFacebook />
-      <IoLogoTwitter />
-      <IoLogoTiktok />
-    </div>
-  );
+    return (
+        <div>
+            <IoLogoInstagram />
+            <IoLogoFacebook />
+            <IoLogoTwitter />
+            <IoLogoTiktok />
+        </div>
+    );
 }
 
 
@@ -72,7 +72,7 @@ function Register() {
                     contraseña: "",
                 });
             });
-            
+
         } catch (error) {
             Swal.fire({
                 icon: "error",
@@ -92,7 +92,7 @@ function Register() {
                 <span>Digite los siguientes datos</span>
 
                 <div className={styles.containerinput}>
-                       <IoPersonCircleOutline />
+                    <IoPersonCircleOutline />
                     <input
                         type="text"
                         placeholder="Nombres"
@@ -110,7 +110,7 @@ function Register() {
                 </div>
 
                 <div className={styles.containerinput}>
-                      <IoCallOutline />
+                    <IoCallOutline />
                     <input
                         type="tel"
                         placeholder="Telefono"
@@ -121,7 +121,7 @@ function Register() {
                 </div>
 
                 <div className={styles.containerinput}>
-                     <IoMailOutline />
+                    <IoMailOutline />
                     <input
                         type="email"
                         placeholder="Gmail"
@@ -187,19 +187,19 @@ function Register() {
                     </select>
                 </div>
 
-                   <div className={styles.inputgroup}>
-                        <label htmlFor="fecha" className={styles.labelinput}>Fecha de Nacimiento</label>
-                        <div className={styles.containerinput}>
+                <div className={styles.inputgroup}>
+                    <label htmlFor="fecha" className={styles.labelinput}>Fecha de Nacimiento</label>
+                    <div className={styles.containerinput}>
                         <IoCalendarNumberOutline />
-                            <input
-                                type="date"
-                                id="fecha"
-                                name="fecha"
-                                value={registerData.fecha}
-                                onChange={handleRegisterChange}
-                            />
-                        </div>
+                        <input
+                            type="date"
+                            id="fecha"
+                            name="fecha"
+                            value={registerData.fecha}
+                            onChange={handleRegisterChange}
+                        />
                     </div>
+                </div>
 
 
                 <div className={styles.containerinput}>
