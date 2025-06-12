@@ -25,14 +25,6 @@ function RedesSociales() {
       <IoLogoFacebook />
       <IoLogoTwitter />
       <IoLogoTiktok />
-      <IoPersonCircleOutline />
-      <IoCallOutline />
-      <IoMailOutline />
-      <IoIdCardOutline />
-      <IoMapOutline />
-      <IoMaleFemaleOutline />
-      <IoCalendarNumberOutline />
-      <IoLockClosedOutline />
     </div>
   );
 }
@@ -95,10 +87,7 @@ function Register() {
             <form className={styles.signup} onSubmit={handleRegisterSubmit}>
                 <h2 className={styles.h2registro}>REGISTRARSE</h2>
                 <div className={styles.socialnetworks}>
-                    <IoLogoInstagram />
-                    <IoLogoFacebook />
-                    <IoLogoTwitter />
-                    <IoLogoTiktok />
+                    <RedesSociales />
                 </div>
                 <span>Digite los siguientes datos</span>
 
