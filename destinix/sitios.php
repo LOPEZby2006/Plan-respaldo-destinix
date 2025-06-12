@@ -3,26 +3,37 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-header("Access-Control-Allow-Origin: http://ambitious-forest-0ecbd371e.6.azurestaticapps.net");
-header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS");
+// ⚠️ CORS headers: cambiar * por el dominio permitido si se requiere
+$allowedOrigin = "https://ambitious-forest-0ecbd371e.6.azurestaticapps.net";
+
+if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] === $allowedOrigin) {
+    header("Access-Control-Allow-Origin: $allowedOrigin");
+    header("Access-Control-Allow-Credentials: true");
+}
+
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
-header("Access-Control-Allow-Credentials: true");
 
-$conexion = include "conexion.php";
+// 🔁 Manejar preflight OPTIONS
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    http_response_code(204); // No Content
+    exit;
+}
+
+include "conexion.php";
 
 $method = $_SERVER["REQUEST_METHOD"];
 $inputData = json_decode(file_get_contents("php://input"), true);
 
-// 📌 1. GET - Obtener todos los sitios turísticos
+// 📌 GET - Obtener todos los sitios turísticos
 if ($method === "GET") {
     $query = "SELECT * FROM sitio_turistico";
     $resultado = $conexion->query($query);
     $data = [];
 
-    if ($resultado->num_rows > 0) {
+    if ($resultado && $resultado->num_rows > 0) {
         while ($row = $resultado->fetch_assoc()) {
-            // Construir la URL completa para la imagen
             if (!empty($row["img_sitio"])) {
                 $row["img_sitio"] = "https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/imagenes/" . $row["img_sitio"];
             }
@@ -34,10 +45,11 @@ if ($method === "GET") {
     exit;
 }
 
-// 📌 2. POST - Crear nuevo sitio turístico con imagen
+// 📌 POST - Crear nuevo sitio turístico con imagen
 if ($method === "POST") {
     if (!isset($_FILES["img_sitio"])) {
-        die(json_encode(["error" => "No se recibió ninguna imagen"]));
+        echo json_encode(["error" => "No se recibió ninguna imagen."]);
+        exit;
     }
 
     $uploadDir = "imagenes/";
@@ -51,14 +63,16 @@ if ($method === "POST") {
     $allowedTypes = ["jpg", "jpeg", "png", "gif"];
 
     if (!in_array($fileType, $allowedTypes)) {
-        die(json_encode(["error" => "Formato de imagen no permitido (jpg, jpeg, png, gif)"]));
+        echo json_encode(["error" => "Formato de imagen no permitido."]);
+        exit;
     }
 
     $newFileName = uniqid() . "." . $fileType;
     $destPath = $uploadDir . $newFileName;
 
     if (!move_uploaded_file($fileTmpPath, $destPath)) {
-        die(json_encode(["error" => "Error al guardar la imagen"]));
+        echo json_encode(["error" => "Error al guardar la imagen."]);
+        exit;
     }
 
     $nombre = $_POST["nombre_sitio"];
@@ -66,7 +80,6 @@ if ($method === "POST") {
     $descripcion = $_POST["desc_sitio"];
     $persona = $_POST["persona_id_persona"];
     $estado = $_POST["estado_id_estado"];
-    
 
     $query = "INSERT INTO sitio_turistico (nombre_sitio, img_sitio, ubicacion_sitio, desc_sitio, persona_id_persona, estado_id_estado)
               VALUES ('$nombre', '$newFileName', '$ubicacion', '$descripcion', '$persona', '$estado')";
@@ -79,7 +92,7 @@ if ($method === "POST") {
     exit;
 }
 
-// 📌 3. PUT - Actualizar sitio turístico (sin imagen)
+// 📌 PUT - Actualizar sitio turístico (sin imagen)
 if ($method === "PUT") {
     if (!$inputData || !isset($inputData["id_sitio"])) {
         echo json_encode(["error" => "Datos incompletos para actualizar."]);
@@ -109,7 +122,7 @@ if ($method === "PUT") {
     exit;
 }
 
-// 📌 4. DELETE - Eliminar sitio turístico por ID
+// 📌 DELETE - Eliminar sitio turístico por ID
 if ($method === "DELETE") {
     if (!$inputData || !isset($inputData["id_sitio"])) {
         echo json_encode(["error" => "ID no proporcionado para eliminar."]);
