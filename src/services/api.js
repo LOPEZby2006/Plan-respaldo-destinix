@@ -452,7 +452,7 @@ export const VerificarUsu = async (id) => {
 };
 
 export const sendResetEmail = async (email) => {
-    const response = await fetch("https://ambitious-forest-0ecbd371e.6.azurestaticapps.net/destinix/SendMail.php", {
+    const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/SendMail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -461,6 +461,7 @@ export const sendResetEmail = async (email) => {
     const result = await response.json();
     return result;
 };
+
 
 export const resetPassword = async (token, newPassword) => {
     const response = await fetch("https://destinixweb-h7cxddbtb0duddbv.brazilsouth-01.azurewebsites.net/destinix/reset.php", {
