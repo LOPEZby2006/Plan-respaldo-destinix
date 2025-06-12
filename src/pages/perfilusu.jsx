@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchUsuario, editUser } from "../services/api";
 import Swal from 'sweetalert2';
-import "../styles/PerfilUsu.css";
+import styles from "../styles/PerfilUsu.module.css";
 
 const PerfilUsu = () => {
     const [usuario, setUsuario] = useState(null);
@@ -114,9 +114,9 @@ const PerfilUsu = () => {
         : "https://via.placeholder.com/150";
 
     return (
-        <div className="perfil-container">
-            <div className="perfil-card">
-                <img src={fotoPerfilUrl} alt="Foto de perfil" className="perfil-foto" />
+        <div className={styles.perfilcontainer}>
+            <div className={styles.perfilcard}>
+                <img src={fotoPerfilUrl} alt="Foto de perfil" className={styles.perfilfoto}/>
                 <h2>Perfil de Usuario</h2>
 
                 {editMode ? (
@@ -127,7 +127,7 @@ const PerfilUsu = () => {
                             value={formData.nombre_usu}
                             onChange={handleChange}
                             placeholder="Nombres"
-                            className="perfil-input"
+                            className={styles.perfilinput}
                         />
                         <input
                             type="text"
@@ -135,7 +135,7 @@ const PerfilUsu = () => {
                             value={formData.apellido_usu}
                             onChange={handleChange}
                             placeholder="Apellidos"
-                            className="perfil-input"
+                            className={styles.perfilinput}
                         />
                         <input
                             type="email"
@@ -143,7 +143,7 @@ const PerfilUsu = () => {
                             value={formData.email_usu}
                             onChange={handleChange}
                             placeholder="Correo"
-                            className="perfil-input"
+                            className={styles.perfilinput}
                         />
                         <input
                             type="text"
@@ -151,7 +151,7 @@ const PerfilUsu = () => {
                             value={formData.telefono_usu}
                             onChange={handleChange}
                             placeholder="Número de Teléfono"
-                            className="perfil-input"
+                            className={styles.perfilinput}
                         />
                         <input
                             type="text"
@@ -159,17 +159,17 @@ const PerfilUsu = () => {
                             value={formData.localidad}
                             onChange={handleChange}
                             placeholder="Localidad"
-                            className="perfil-input"
+                            className={styles.perfilinput}
                         />
                         <input
                             type="file"
                             onChange={handleFileChange}
-                            className="perfil-input"
+                            className={styles.perfilinput}
                         />
 
-                        <div className="botones-accion">
-                            <button onClick={handleSave} className="guardar-btn">Guardar</button>
-                            <button onClick={() => setEditMode(false)} className="cancelar-btn">Cancelar</button>
+                        <div className={styles.botonesaccion}>
+                            <button onClick={handleSave} className={styles.guardarbtn}>Guardar</button>
+                            <button onClick={() => setEditMode(false)} className={styles.cancelarbtn}>Cancelar</button>
                         </div>
                     </>
                 ) : (
@@ -179,7 +179,7 @@ const PerfilUsu = () => {
                         <p><strong>📞 Número:</strong> {usuario.telefono_usu}</p>
                         <p><strong>Localidad:</strong> {usuario.localidad}</p>
 
-                        <button onClick={() => setEditMode(true)} className="editar-btn">Editar Perfil</button>
+                        <button onClick={() => setEditMode(true)} className={styles.editarbtn}>Editar Perfil</button>
                     </>
                 )}
             </div>

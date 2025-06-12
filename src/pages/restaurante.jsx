@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getRestaurantes, addComentario } from "../services/api";
 import CardRestaurante from '../components/cardrestaurantes';
 import Swal from 'sweetalert2';
+import styles from "../styles/lugares.module.css";
 
 const Restaurantes = () => {
     const [restaurantes, setRestaurantes] = useState([]);
@@ -68,7 +69,7 @@ const Restaurantes = () => {
     };
 
     return (
-        <div className="sitio-turistico-container">
+        <div className={styles.contenedor}>
             {restaurantes.length > 0 ? (
                 restaurantes.map(rest => (
                     <CardRestaurante

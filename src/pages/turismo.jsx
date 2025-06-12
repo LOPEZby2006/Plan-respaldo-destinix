@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getSitioTuristico, addComentario } from "../services/api";
 import Card from '../components/cards';  // Importa el componente Card
 import Swal from 'sweetalert2';
+import styles from "../styles/lugares.module.css";
 
 const SitioTuristico = () => {
     const [sitio, setSitio] = useState([]); // Usamos un array aquí
@@ -88,7 +89,7 @@ const SitioTuristico = () => {
     };
 
     return (
-        <div className="sitio-turistico-container">
+        <div className={styles.contenedor}>
             {sitio && sitio.length > 0 ? (
                 sitio.map((s) => (
                     <Card
